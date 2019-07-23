@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="pinkLight">#F23B5F</color>
+    <color name="grayDark">#253A4B</color>
+    <color name="black">#000000</color>
+    <color name="black80">#CC000000</color>
+    <color name="lighblue">#8FE3FE</color>
+    <color name="darkblue">#3B5998</color>
+
+
+
+
+    <color name="tvbackground">#33253A4B</color>
+</resources>
