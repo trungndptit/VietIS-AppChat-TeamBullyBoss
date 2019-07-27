@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar_search"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize">
+
+    <EditText
+        android:id="@+id/text_search"
+        style="@style/TextTitle"
+        android:background="@null"
+        android:maxLines="1"
+        android:hint="Tìm kiếm"
+        android:textSize="14sp" />
+</androidx.appcompat.widget.Toolbar>
