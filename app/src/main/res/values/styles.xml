@@ -14,5 +14,9 @@
     <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="MenuStyle" parent="Theme.AppCompat.Light">
+        <item name="android:background">@android:color/white</item>
+    </style>
+
 
 </resources>

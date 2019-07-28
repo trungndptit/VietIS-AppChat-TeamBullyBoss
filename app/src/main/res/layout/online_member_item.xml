@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/member_image"
+        android:src="@mipmap/ic_launcher"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/member_name"
+        android:text="username"
+        android:textSize="20sp"
+        android:layout_toRightOf="@+id/member_image"
+        android:layout_toEndOf="@+id/member_image"
+        android:layout_marginLeft="10dp"
+        android:layout_centerVertical="true"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:id="@+id/member_status_on"
+        android:src="@mipmap/ic_launcher"
+        android:layout_below="@+id/member_name"
+        android:layout_toRightOf="@+id/member_image"
+        android:layout_toEndOf="@+id/member_image"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="-10dp"
+        app:civ_border_width="10dp"
+        app:civ_border_color="#12ff38"
+        android:visibility="gone"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:id="@+id/member_status_off"
+        android:src="@mipmap/ic_launcher"
+        android:layout_below="@+id/member_name"
+        android:layout_toRightOf="@+id/member_image"
+        android:layout_toEndOf="@+id/member_image"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="-10dp"
+        app:civ_border_width="10dp"
+        app:civ_border_color="#474646" />
+</RelativeLayout>
