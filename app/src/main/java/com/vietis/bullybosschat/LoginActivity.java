@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,8 +20,8 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginActivity extends AppCompatActivity {
     private EditText mInputEmail;
     private EditText mInputPasword;
-
     private Button mButtonLogin;
+    private ImageButton mImageBack;
 
     private FirebaseAuth mAuth;
 
@@ -31,7 +32,13 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mInputEmail = findViewById(R.id.et_email);
         mInputPasword = findViewById(R.id.et_password);
+        mImageBack =  findViewById(R.id.image_back);
         mButtonLogin = findViewById(R.id.button_login);
+        addListner();
+
+    }
+
+    private void addListner() {
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,6 +64,16 @@ public class LoginActivity extends AppCompatActivity {
                     });
                 }
 
+            }
+        });
+
+
+        mImageBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

@@ -21,16 +21,17 @@
             android:textColor="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
         <ImageView
             android:id="@+id/image_add_friend"
-            android:src="@drawable/ic_add_friends"
-            android:background="@drawable/shape_oval_boder_gray"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentRight="true"
             android:layout_marginTop="8dp"
-            android:padding="7dp"
             android:layout_marginRight="25dp"
-            android:layout_width="35dp"
-            android:layout_height="35dp" />
+            android:background="@drawable/shape_oval_boder_gray"
+            android:padding="7dp"
+            android:src="@drawable/ic_add_friends" />
     </RelativeLayout>
 
 

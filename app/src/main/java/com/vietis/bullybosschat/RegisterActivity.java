@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+//import com.google.firebase.auth.AuthResult;
+//import com.google.firebase.auth.FirebaseAuth;
+//import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -73,19 +76,19 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
-    private  void  Register(String email, final String  name, String password, final String comfirmPass){
+    private  void  Register(String email, final String  username, String password,  String state){
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    FirebaseUser  user =  mAuth.getCurrentUser();
+                    FirebaseUser user =  mAuth.getCurrentUser();
                     String idUser = user.getUid();
-                    reference = FirebaseDatabase.getInstance().getReference("Users").child(idUser);
+                    reference = FirebaseDatabase.getInstance().getReference().child("Users").child(idUser);
                     HashMap<String, String> hashMap =  new HashMap<>();
                     hashMap.put("id", idUser);
-                    hashMap.put("name",name);
-                    hashMap.put("confirmPass", comfirmPass);
-                    hashMap.put("avatar","defaul");
+                    hashMap.put("username",username);
+                    hashMap.put("imageurl", "default");
+                    hashMap.put("state","off");
 
 
                     reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -98,7 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 startActivity(intent);
                                 finish();
                             }
-                            
+
                             else {
                                 Toast.makeText(RegisterActivity.this, "you can't register with email, password", Toast.LENGTH_SHORT).show();
                             }

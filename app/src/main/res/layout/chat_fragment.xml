@@ -8,18 +8,12 @@
     <include
         android:id="@+id/chat_toolbar"
         layout="@layout/chat_toolbar" />
-    <!--<androidx.appcompat.widget.Toolbar-->
-        <!--android:id="@+id/main_toolbar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--app:title="Chat"-->
-        <!--android:layout_height="?attr/actionBarSize">-->
 
-    <!--</androidx.appcompat.widget.Toolbar>-->
+    <View
+        android:id="@+id/view_main"
 
-    <!--<View-->
-        <!--android:id="@+id/view_main"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="2dp" />-->
+        android:layout_width="match_parent"
+        android:layout_height="2dp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -44,7 +38,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_chat"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="4dp"
+            android:layout_marginLeft="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
 

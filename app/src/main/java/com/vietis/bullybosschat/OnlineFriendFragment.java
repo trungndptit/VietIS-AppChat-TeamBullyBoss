@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 
-public class ChooseFriendFragment extends Fragment {
+public class OnlineFriendFragment extends Fragment {
     TextView mTextSearch;
     private Toolbar mToolbar;
     private ImageView mImageAvatar;
@@ -24,7 +24,7 @@ public class ChooseFriendFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.choose_friends_fragment, container, false);
+        View view = inflater.inflate(R.layout.online_friend_fragment, container, false);
         mTextSearch = view.findViewById(R.id.text_search);
         mToolbar =  view.findViewById(R.id.choose_friend_toolbar);
         mImageAvatar = view.findViewById(R.id.image_avatar);

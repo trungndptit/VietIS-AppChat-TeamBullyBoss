@@ -12,15 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.vietis.bullybosschat.chat.adapter.ChatAdapter;
-import com.vietis.bullybosschat.chat.model.User;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ChatFragment  extends Fragment {
 
@@ -28,7 +21,7 @@ public class ChatFragment  extends Fragment {
     private Toolbar mToolbar;
     private ImageView mImageAvatar;
 
-    TextView mTextSearch;
+    private TextView mTextSearch;
 
     @Nullable
     @Override

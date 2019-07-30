@@ -60,16 +60,16 @@
             android:src="@drawable/ic_camera" />
 
         <!--<TextView-->
-            <!--android:id="@+id/text_name"-->
-            <!--android:text="Việt Vịt <3  "-->
-            <!--android:textStyle="bold"-->
-            <!--android:textColor="@color/black"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_below="@id/image_avatar"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:layout_marginTop="38dp"-->
-            <!--android:textSize="23sp" />-->
+        <!--android:id="@+id/text_name"-->
+        <!--android:text="Việt Vịt <3  "-->
+        <!--android:textStyle="bold"-->
+        <!--android:textColor="@color/black"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/image_avatar"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="38dp"-->
+        <!--android:textSize="23sp" />-->
 
         <TextView
             android:id="@+id/txt_name"
@@ -147,36 +147,36 @@
 
         </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/image_add_friend"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_below="@id/layout_tow"
-                android:layout_marginLeft="35dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/shape_oval_boder_gray"
-                android:src="@drawable/ic_add_friends" />
-            <TextView
-                android:id="@+id/text_add_friend"
-                android:layout_toRightOf="@id/image_add_friend"
-                android:layout_below="@id/layout_tow"
-                android:text="Add Friend"
-                android:layout_marginLeft="15dp"
-                android:layout_centerInParent="true"
-                android:layout_width="wrap_content"
-                android:textSize="18sp"
-                android:layout_marginTop="20dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/text_follow1"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/layout_tow"
-                android:layout_marginRight="60dp"
-                android:textSize="18sp"
-                android:text="Follow"
-                android:layout_marginTop="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+        <ImageButton
+            android:id="@+id/image_add_friend"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/layout_tow"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/shape_oval_boder_gray"
+            android:src="@drawable/ic_add_friends" />
+        <TextView
+            android:id="@+id/text_add_friend"
+            android:layout_toRightOf="@id/image_add_friend"
+            android:layout_below="@id/layout_tow"
+            android:text="Add Friend"
+            android:layout_marginLeft="15dp"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/text_follow1"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/layout_tow"
+            android:layout_marginRight="60dp"
+            android:textSize="18sp"
+            android:text="Follow"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
 
         <ImageButton

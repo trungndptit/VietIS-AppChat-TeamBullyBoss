@@ -13,7 +13,7 @@
 
     <include
         android:id="@+id/choose_friend_toolbar"
-        layout="@layout/choose_friend_toolbar" />
+        layout="@layout/online_friend_toolbar" />
     <!--<View-->
         <!--android:id="@+id/view_main"-->
         <!--android:layout_width="match_parent"-->
@@ -42,8 +42,9 @@
             android:textSize="16sp" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_friend_online"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="15dp"
             android:layout_marginLeft="3dp"
+            android:layout_margin="6dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
 
