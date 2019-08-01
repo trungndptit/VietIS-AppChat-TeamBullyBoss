@@ -1,4 +1,4 @@
-package com.vietis.bullybosschat;
+package com.vietis.bullybosschat.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,24 +14,23 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.vietis.bullybosschat.R;
 
-public class ChatFragment  extends Fragment {
-
-
+public class OnlineFriendFragment extends Fragment {
+    TextView mTextSearch;
     private Toolbar mToolbar;
     private ImageView mImageAvatar;
-
-    private TextView mTextSearch;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.chat_fragment, container, false);
+
+        View view = inflater.inflate(R.layout.online_friend_fragment, container, false);
         mTextSearch = view.findViewById(R.id.text_search);
-        mToolbar =  view.findViewById(R.id.chat_toolbar);
+        mToolbar =  view.findViewById(R.id.choose_friend_toolbar);
         mImageAvatar = view.findViewById(R.id.image_avatar);
         initToolbar();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Chat");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Online Member");
         return view;
     }
 
@@ -42,8 +41,5 @@ public class ChatFragment  extends Fragment {
                 .load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtk3oX9Z6oUrvf5Lb4qWr5w4GWlAsX5P3w6Y_FIrdH6YHL7Sme")
                 .circleCrop()
                 .into(mImageAvatar);
-
     }
-
-
 }

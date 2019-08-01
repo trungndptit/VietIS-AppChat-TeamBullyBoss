@@ -1,4 +1,4 @@
-package com.vietis.bullybosschat;
+package com.vietis.bullybosschat.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.vietis.bullybosschat.R;
 import com.vietis.bullybosschat.model.User;
 
 public class ProfileFragment extends Fragment {

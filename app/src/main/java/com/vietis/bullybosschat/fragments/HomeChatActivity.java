@@ -1,4 +1,4 @@
-package com.vietis.bullybosschat;
+package com.vietis.bullybosschat.fragments;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +9,10 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.vietis.bullybosschat.R;
+import com.vietis.bullybosschat.fragments.ChatFragment;
+import com.vietis.bullybosschat.fragments.OnlineFriendFragment;
+import com.vietis.bullybosschat.fragments.ProfileFragment;
 
 public class HomeChatActivity extends AppCompatActivity {
 

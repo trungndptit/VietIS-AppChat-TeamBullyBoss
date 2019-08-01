@@ -1,4 +1,4 @@
-package com.vietis.bullybosschat;
+package com.vietis.bullybosschat.entrance;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +16,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.vietis.bullybosschat.fragments.HomeChatActivity;
+import com.vietis.bullybosschat.R;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText mInputEmail;
