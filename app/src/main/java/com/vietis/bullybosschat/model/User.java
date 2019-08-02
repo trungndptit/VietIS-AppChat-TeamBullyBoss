@@ -1,10 +1,21 @@
 package com.vietis.bullybosschat.model;
 
+import java.util.ArrayList;
+
 public class User {
     private String id;
     private String imageurl;
     private String state;
-    private  String username;
+    private String username;
+    private ArrayList<String> friends;
+
+    public ArrayList<String> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(ArrayList<String> friends) {
+        this.friends = friends;
+    }
 
     public String getId() {
         return id;
@@ -38,11 +49,12 @@ public class User {
         this.username = username;
     }
 
-    public User(String id, String imageurl, String state, String username) {
+    public User(String id, String imageurl, String state, String username,  ArrayList<String> friends) {
         this.id = id;
         this.imageurl = imageurl;
         this.state = state;
         this.username = username;
+        this.friends = friends;
     }
 
     public User() {

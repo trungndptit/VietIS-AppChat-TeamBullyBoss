@@ -30,11 +30,12 @@
         android:paddingBottom="3dp"
         android:src="@drawable/ic_camera" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image_avatar"
         android:layout_width="180dp"
         android:layout_height="180dp"
-        android:src="@drawable/anh1"
+        android:src="@drawable/ic_avatar"
+        android:scaleType="fitCenter"
         android:clickable="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="140dp"

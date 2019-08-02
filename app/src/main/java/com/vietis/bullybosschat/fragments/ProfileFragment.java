@@ -30,6 +30,7 @@ public class ProfileFragment extends Fragment {
     private ImageView mUpdateAvatar;
     private ImageView mUpdateCover;
     private TextView mTextName;
+    private TextView tvFriends;
     private TextView mTextOne;
     private TextView mTextTow;
     private TextView mTextFriend;
@@ -56,6 +57,7 @@ public class ProfileFragment extends Fragment {
 
         mImageAvatar=  view.findViewById(R.id.image_avatar);
         mTextName=  view.findViewById(R.id.txt_name);
+        tvFriends = view.findViewById(R.id.text_one);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -69,6 +71,7 @@ public class ProfileFragment extends Fragment {
                 User user = dataSnapshot.getValue(User.class);
                 if(idUser.equals(user.getId())){
                     mTextName.setText(user.getUsername());
+                    tvFriends.setText(String.valueOf(user.getFriends().size()));
 //                    if (user.getImageurl().equals("default")) {
 //                        mImageAvatar.setImageResource(R.drawable.anh1);
 //                    } else {
