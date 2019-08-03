@@ -7,6 +7,16 @@ public class User {
     private String imageurl;
     private String state;
     private String username;
+    private String search;
+
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
+    }
+
     private ArrayList<String> friends;
 
     public ArrayList<String> getFriends() {
@@ -49,11 +59,12 @@ public class User {
         this.username = username;
     }
 
-    public User(String id, String imageurl, String state, String username,  ArrayList<String> friends) {
+    public User(String id, String imageurl, String state, String username, String search, ArrayList<String> friends) {
         this.id = id;
         this.imageurl = imageurl;
         this.state = state;
         this.username = username;
+        this.search = search;
         this.friends = friends;
     }
 

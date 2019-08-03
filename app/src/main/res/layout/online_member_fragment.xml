@@ -14,17 +14,17 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/toolbar_image"
+                android:background="@drawable/ic_avatar"
+                android:id="@+id/image_avatar"
                 android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:src="@mipmap/ic_launcher_round"/>
+                android:layout_height="45dp" />
 
             <TextView
                 android:id="@+id/toolbar_name"
                 android:text="Online member"
                 android:textStyle="bold"
                 android:textSize="21sp"
-                android:layout_toRightOf="@id/toolbar_image"
+                android:layout_toRightOf="@id/image_avatar"
                 android:layout_marginLeft="14dp"
                 android:layout_marginTop="7dp"
                 android:textColor="@color/black"
