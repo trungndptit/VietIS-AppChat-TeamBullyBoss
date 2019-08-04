@@ -60,7 +60,6 @@
            android:background="@drawable/tv_type_background"
            android:hint="trungndptit@gmail.com"
            android:inputType="textPersonName"
-           android:padding="3dp"
            android:layout_margin="8dp"
            android:textColor="@color/black" />
 
@@ -72,7 +71,6 @@
            android:background="@drawable/tv_type_background"
            android:hint="trungndptit@gmail.com"
            android:inputType="textPersonName"
-           android:padding="3dp"
            android:layout_margin="8dp"
            android:textColor="@color/black" />
 
@@ -83,7 +81,6 @@
            android:background="@drawable/tv_type_background"
            android:ems="10"
            android:hint="********"
-           android:padding="3dp"
            android:layout_margin="8dp"
            android:inputType="textPassword"
            android:textColor="@color/black" />
@@ -96,7 +93,6 @@
            android:background="@drawable/tv_type_background"
            android:ems="10"
            android:hint="********"
-           android:padding="3dp"
            android:layout_margin="8dp"
            android:inputType="textPassword"
            android:textColor="@color/black" />

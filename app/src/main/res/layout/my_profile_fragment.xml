@@ -1,133 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/image_background"
-        android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:layout_marginLeft="18dp"
-        android:src="@drawable/anhbia1"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="18dp" />
+        <ImageView
+            android:id="@+id/image_background"
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="18dp"
+            android:src="@drawable/anhbia1" />
 
-    <ImageView
-        android:id="@+id/image_edit_cover"
-        android:layout_width="40dp"
-        android:layout_height="32dp"
-        android:layout_alignRight="@id/image_background"
-        android:layout_alignBottom="@id/image_background"
-        android:layout_margin="10dp"
-        android:background="@drawable/round_corner_gray_6"
-        android:clickable="true"
-        android:paddingLeft="10dp"
-        android:paddingTop="3dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="3dp"
-        android:src="@drawable/ic_camera" />
+        <ImageView
+            android:id="@+id/image_edit_cover"
+            android:layout_width="40dp"
+            android:layout_height="32dp"
+            android:layout_alignRight="@id/image_background"
+            android:layout_alignBottom="@id/image_background"
+            android:layout_margin="10dp"
+            android:background="@drawable/round_corner_gray_6"
+            android:clickable="true"
+            android:paddingLeft="10dp"
+            android:paddingTop="3dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="3dp"
+            android:src="@drawable/ic_camera" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/image_avatar"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:src="@drawable/ic_avatar"
-        android:scaleType="fitCenter"
-        android:clickable="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="140dp"
-        android:padding="3dp" />
+        <ImageView
+            android:id="@+id/image_avatar"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="140dp"
+            android:scaleType="fitCenter"
+            android:background="@drawable/ic_avatar" />
 
-    <ImageView
-        android:id="@+id/image_edit_avatar"
-        android:layout_width="40dp"
-        android:layout_height="32dp"
-        android:layout_alignRight="@id/image_avatar"
-        android:layout_alignBottom="@id/image_avatar"
-        android:layout_margin="10dp"
-        android:clickable="true"
-        android:background="@drawable/round_corner_gray_6"
-        android:padding="6dp"
-        android:src="@drawable/ic_camera" />
+        <ImageView
+            android:id="@+id/image_edit_avatar"
+            android:layout_width="40dp"
+            android:layout_height="32dp"
+            android:layout_alignRight="@id/image_avatar"
+            android:layout_alignBottom="@id/image_avatar"
+            android:layout_margin="10dp"
+            android:background="@drawable/round_corner_gray_6"
+            android:clickable="true"
+            android:padding="6dp"
+            android:src="@drawable/ic_camera" />
 
         <TextView
             android:id="@+id/txt_name"
-            android:text="Kim Cho"
-            android:textSize="23sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image_avatar"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
-            android:layout_below="@id/image_avatar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:text="Kim Cho"
+            android:textColor="@color/black"
+            android:textSize="23sp"
+            android:textStyle="bold" />
 
 
         <LinearLayout
             android:id="@+id/layout_one"
-            android:layout_below="@id/txt_name"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_name"
             android:layout_marginTop="50dp"
-            android:weightSum="4"
             android:orientation="horizontal"
-            android:layout_height="wrap_content">
+            android:weightSum="4">
 
-                <TextView
-                    android:id="@+id/text_one"
-                    android:layout_weight="2"
-                    android:text="22"
-                    android:textSize="23sp"
-                    android:textColor="@color/pinkLight"
-                    android:gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/text_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="22"
+                android:textColor="@color/pinkLight"
+                android:textSize="23sp" />
 
 
             <TextView
                 android:id="@+id/text_two"
-                android:layout_weight="2"
                 android:layout_width="0dp"
-                android:text="99+"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
                 android:gravity="center"
-                android:textSize="22sp"
+                android:text="99+"
                 android:textColor="@color/pinkLight"
-                android:layout_height="wrap_content" />
+                android:textSize="22sp" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_below="@id/layout_one"
             android:layout_width="match_parent"
-            android:weightSum="4"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_one"
             android:layout_marginTop="5dp"
             android:orientation="horizontal"
-            android:layout_height="wrap_content">
+            android:weightSum="4">
 
-        <TextView
-            android:id="@+id/text_friend"
-            android:layout_weight="2"
-            android:text="Friend"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="23sp"
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/text_friend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="Friend"
+                android:textColor="@color/black"
+                android:textSize="23sp"
+                android:textStyle="bold" />
 
 
             <TextView
                 android:id="@+id/text_follow"
-                android:layout_weight="2"
-                android:text="Follow"
-                android:textStyle="bold"
-                android:textSize="23sp"
-                android:textColor="@color/black"
-                android:gravity="center"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="Follow"
+                android:textColor="@color/black"
+                android:textSize="23sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </RelativeLayout>

@@ -1,67 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".AddUsersActivity">
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_add_users"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/toolbar_image"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:src="@mipmap/ic_launcher_round"/>
-
-            <TextView
-                android:id="@+id/toolbar_name"
-                android:text="Add users"
-                android:textStyle="bold"
-                android:textSize="21sp"
-                android:layout_toRightOf="@id/toolbar_image"
-                android:layout_marginLeft="14dp"
-                android:layout_marginTop="7dp"
-                android:textColor="@color/black"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
+        android:layout_height="wrap_content">
+        <ImageView
+            android:background="@drawable/ic_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:text="Add Users"
+            android:textColor="@color/black80"
+            android:textStyle="bold"
+            android:textSize="21sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
+        android:id="@+id/ll_search_online_list"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/background_search"
+        android:layout_below="@id/toolbar_add_users"
+        android:layout_marginHorizontal="20dp"
+        android:gravity="center_vertical"
+        android:weightSum="10"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="vertical">
+        android:layout_height="33dp">
 
-        <TextView
-            android:id="@+id/text_search"
-            android:layout_width="match_parent"
-            android:layout_height="43dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/round_conner_gray2"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:gravity="center_vertical"
-            android:paddingLeft="10dp"
-            android:text="tim_kiem"
-            android:textSize="16sp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list_users"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="4dp"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
             android:layout_height="match_parent">
-        </androidx.recyclerview.widget.RecyclerView>
-
+            <ImageView
+                android:id="@+id/iv_search_add_user"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/ic_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <TextView
+            android:layout_weight="9"
+            android:hint="Search..."
+            android:textSize="15sp"
+            android:textColor="@color/black80"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
-</LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="15dp"
+        android:id="@+id/rv_add_users"
+        android:layout_below="@id/ll_search_online_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

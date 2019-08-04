@@ -27,8 +27,7 @@
                 android:layout_marginTop="50dp"
                 android:text="Welcome!"
                 android:textColor="@android:color/white"
-                android:textSize="50sp" />
-
+                android:textSize="54sp" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -36,8 +35,8 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="5dp"
                 android:text="Nice too see you"
-                android:textColor="@android:color/white"
-                android:textSize="22sp" />
+                android:textColor="@color/white30"
+                android:textSize="25sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -73,17 +72,13 @@
                 layout="@layout/custom_button_login_facebook" />
 
         </LinearLayout>
-
-
     </LinearLayout>
-
-
 
 <TextView
     android:id="@+id/text_sigup"
     android:text="You do not have account? Register!"
     android:textColor="@color/pinkLight"
-    android:layout_marginBottom="19dp"
+    android:layout_marginBottom="15dp"
     android:layout_marginLeft="28dp"
     android:textStyle="italic"
     android:textSize="18sp"

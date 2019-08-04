@@ -18,27 +18,28 @@ import com.vietis.bullybosschat.model.User;
 
 import java.util.ArrayList;
 
-public class AllFriendsAdapter extends RecyclerView.Adapter<AllFriendsAdapter.ViewHolder>{
-    public static final String IS_FRIEND = "isFriend";
+public class AddUserAdapter extends RecyclerView.Adapter<AddUserAdapter.ViewHolder> {
+    public static final String USER_ID = "userID";
+
 
     private Context context;
     private ArrayList<User> users;
 
-    public AllFriendsAdapter(Context context, ArrayList<User> users) {
+    public AddUserAdapter(Context context, ArrayList<User> users) {
         this.context = context;
         this.users = users;
     }
 
     @NonNull
     @Override
-    public AllFriendsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.all_my_friends_item, parent, false);
-        return new AllFriendsAdapter.ViewHolder(view);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.add_users_item, parent, false);
+        return new AddUserAdapter.ViewHolder(view);
 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AllFriendsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final User user = users.get(position);
         holder.tvUsername.setText(user.getUsername());
         if (user.getImageurl().equals("default")) {
@@ -51,8 +52,8 @@ public class AllFriendsAdapter extends RecyclerView.Adapter<AllFriendsAdapter.Vi
             @Override
             public void onClick(View view) {
                 Intent userProfile = new Intent(context, UserProfileAcitivity.class);
-                userProfile.putExtra(AddUserAdapter.USER_ID, user.getId());
-                userProfile.putExtra(IS_FRIEND, "true");
+                userProfile.putExtra(USER_ID, user.getId());
+                userProfile.putExtra("isFriend", "false");
                 context.startActivity(userProfile);
             }
         });

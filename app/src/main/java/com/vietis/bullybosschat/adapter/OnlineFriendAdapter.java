@@ -30,7 +30,7 @@ public class OnlineFriendAdapter extends RecyclerView.Adapter<OnlineFriendAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.online_member_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.onl_user_item, parent, false);
         return new OnlineFriendAdapter.ViewHolder(view);
     }
 
@@ -66,8 +66,8 @@ public class OnlineFriendAdapter extends RecyclerView.Adapter<OnlineFriendAdapte
         ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvUsername = itemView.findViewById(R.id.member_name);
-            ivProfile = itemView.findViewById(R.id.member_image);
+            tvUsername = itemView.findViewById(R.id.tv_username_online);
+            ivProfile = itemView.findViewById(R.id.civ_avatar_online_item);
         }
     }
 }

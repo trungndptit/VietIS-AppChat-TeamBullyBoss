@@ -1,35 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize">
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <ImageView
-            android:background="@drawable/ic_avatar"
             android:id="@+id/image_avatar"
             android:layout_width="45dp"
-            android:layout_height="45dp" />
+            android:layout_height="45dp"
+            android:background="@drawable/ic_avatar" />
 
         <TextView
             android:id="@+id/txt_name"
-            android:text="Online Member"
-            android:textStyle="bold"
-            android:textSize="21sp"
-            android:layout_toRightOf="@id/image_avatar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="14dp"
             android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/image_avatar"
+            android:text="Online Member"
             android:textColor="@color/black"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:textSize="21sp"
+            android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/image_add_friend"
+        <ImageButton
+            android:id="@+id/ib_contact_user_fragment"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_alignParentRight="true"
             android:layout_marginTop="8dp"
-            android:layout_marginRight="25dp"
+            android:layout_marginRight="65dp"
+            android:background="@drawable/shape_oval_boder_gray"
+            android:padding="7dp"
+            android:src="@drawable/ic_contact_book" />
+
+        <ImageButton
+            android:id="@+id/ib_add_friend_fragment"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/shape_oval_boder_gray"
             android:padding="7dp"
             android:src="@drawable/ic_add_friends" />
