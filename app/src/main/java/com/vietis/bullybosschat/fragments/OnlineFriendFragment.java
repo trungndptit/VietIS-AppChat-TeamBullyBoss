@@ -8,12 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,12 +34,9 @@ import java.util.ArrayList;
 
 public class OnlineFriendFragment extends Fragment {
     EditText mTextSearch;
-    private Toolbar mToolbar;
-    private ImageView mImageAvatar, mImageAddFriend;
+    private ImageView mImageAddFriend;
 
-    private ImageButton ibContact, ibAddFriends;
     private RecyclerView rvListOnline;
-
     private OnlineFriendAdapter onlineFriendAdapter;
     private ArrayList<User> mUsers;
 
@@ -154,8 +149,6 @@ public class OnlineFriendFragment extends Fragment {
 
     private void setInit(View view){
         mTextSearch = view.findViewById(R.id.text_search);
-        mToolbar =  view.findViewById(R.id.choose_friend_toolbar);
-        mImageAvatar = view.findViewById(R.id.image_avatar);
         rvListOnline = view.findViewById(R.id.list_friend_online);
         mImageAddFriend = view.findViewById(R.id.image_add_friend);
     }
