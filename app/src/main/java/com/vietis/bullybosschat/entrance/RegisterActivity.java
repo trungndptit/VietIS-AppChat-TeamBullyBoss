@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.vietis.bullybosschat.R;
+import com.vietis.bullybosschat.cache.PrefUtils;
 
 import java.util.HashMap;
 
@@ -39,12 +40,14 @@ public class RegisterActivity extends AppCompatActivity {
 
     private ImageButton mImageBack;
     private DatabaseReference reference;
+    private PrefUtils prefUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         mAuth =  FirebaseAuth.getInstance();
+        prefUtils = PrefUtils.getIntance(this);
         mInputEmail =  findViewById(R.id.input_email);
         mInputName =  findViewById(R.id.input_name);
         mInputPasword =  findViewById(R.id.input_password);
@@ -99,6 +102,7 @@ public class RegisterActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
 
                             if (task.isSuccessful()){
+                                prefUtils.setCurrentUid(mAuth.getUid());
                                 Toast.makeText(RegisterActivity.this, "register successful", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                 startActivity(intent);

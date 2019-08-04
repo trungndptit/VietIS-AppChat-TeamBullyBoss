@@ -1,8 +1,5 @@
 package com.vietis.bullybosschat.entrance;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -25,8 +25,9 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.vietis.bullybosschat.fragments.HomeChatActivity;
 import com.vietis.bullybosschat.R;
+import com.vietis.bullybosschat.cache.PrefUtils;
+import com.vietis.bullybosschat.fragments.HomeChatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,10 +44,16 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference reference;
     private CallbackManager mCallBackManager;
 
+    private PrefUtils prefUtils;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        prefUtils = PrefUtils.getIntance(this);
+
+        checkLogined();
+
         initView();
 //        reference = FirebaseDatabase.getInstance().getReference();
 //        System.out.println("Debug: ngoai");
@@ -94,6 +101,14 @@ public class MainActivity extends AppCompatActivity {
         initLoginWithFb();
         initLoginWithGg();
         addlistner();
+    }
+
+    private void checkLogined() {
+        if (prefUtils.getCurrentUid() != null) {
+            Intent intent = new Intent(MainActivity.this, HomeChatActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
 
