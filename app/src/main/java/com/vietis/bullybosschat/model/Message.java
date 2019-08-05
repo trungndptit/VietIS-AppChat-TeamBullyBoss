@@ -4,14 +4,24 @@ public class Message {
     private String sender;
     private String receiver;
     private String message;
+    private String time;
 
-    public Message(String sender, String receiver, String message) {
+    public Message(String sender, String receiver, String message, String time) {
         this.sender = sender;
         this.receiver = receiver;
         this.message = message;
+        this.time = time;
     }
 
     public Message() {
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getSender() {

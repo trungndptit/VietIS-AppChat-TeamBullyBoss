@@ -30,6 +30,7 @@ public class WhomChatAdapter extends RecyclerView.Adapter<WhomChatAdapter.ViewHo
     private Context context;
     private ArrayList<User> users;
     private String thelastmsg;
+    private String thelasttime;
 
     public WhomChatAdapter(Context context, ArrayList<User> users) {
         this.context = context;
@@ -60,9 +61,10 @@ public class WhomChatAdapter extends RecyclerView.Adapter<WhomChatAdapter.ViewHo
             holder.civIsOnl.setVisibility(View.GONE);
         }
 
-        theLastMessage(user.getId(), holder.tvLastMsg);
+        theLastMessage(user.getId(), holder.tvLastMsg, holder.txt_time_seen);
 
         holder.tvLastMsg.setText(thelastmsg);
+        holder.txt_time_seen.setText(thelasttime);
         System.out.println("Debug Chat: users = " + users.size());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +87,7 @@ public class WhomChatAdapter extends RecyclerView.Adapter<WhomChatAdapter.ViewHo
         public ImageView ivProfile;
         public TextView tvLastMsg;
         public ImageView civIsOnl;
+        public TextView txt_time_seen;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -93,10 +96,11 @@ public class WhomChatAdapter extends RecyclerView.Adapter<WhomChatAdapter.ViewHo
             ivProfile = itemView.findViewById(R.id.image_avatar);
             tvLastMsg = itemView.findViewById(R.id.text_message);
             civIsOnl = itemView.findViewById(R.id.civ_chat_online);
+            txt_time_seen = itemView.findViewById(R.id.txt_time_seen);
         }
     }
 
-    private void theLastMessage(final String userid, final TextView lastmsg) {
+    private void theLastMessage(final String userid, final TextView lastmsg, final TextView timemsg) {
         thelastmsg = "default";
 
         final FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
@@ -110,6 +114,7 @@ public class WhomChatAdapter extends RecyclerView.Adapter<WhomChatAdapter.ViewHo
                     if (message.getReceiver().equals(fuser.getUid()) && message.getSender().equals(userid)
                             || message.getReceiver().equals(userid) && message.getSender().equals(fuser.getUid())) {
                         thelastmsg = message.getMessage();
+                        thelasttime = message.getTime();
                     }
                 }
 
@@ -119,6 +124,7 @@ public class WhomChatAdapter extends RecyclerView.Adapter<WhomChatAdapter.ViewHo
                         break;
                     default:
                         lastmsg.setText(thelastmsg);
+                        timemsg.setText(thelasttime);
                         break;
                 }
                 thelastmsg = "default";
