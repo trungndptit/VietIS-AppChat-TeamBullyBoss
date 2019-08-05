@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".RoomChatActivity"></activity>
-        <activity android:name=".AllFriendsActivity" />
+        <activity android:name=".AllMyFriendsActivity" />
         <activity android:name=".UserProfileAcitivity" />
         <activity android:name=".AddUsersActivity" />
         <activity android:name=".fragments.HomeChatActivity" />

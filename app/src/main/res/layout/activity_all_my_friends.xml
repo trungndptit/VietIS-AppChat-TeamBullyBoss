@@ -14,17 +14,17 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/toolbar_image"
+                android:id="@+id/image_view_back"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:src="@mipmap/ic_launcher_round"/>
+                android:src="@drawable/ic_back"/>
 
             <TextView
                 android:id="@+id/toolbar_name"
-                android:text="Add users"
+                android:text="All my friends"
                 android:textStyle="bold"
                 android:textSize="21sp"
-                android:layout_toRightOf="@id/toolbar_image"
+                android:layout_toRightOf="@id/image_view_back"
                 android:layout_marginLeft="14dp"
                 android:layout_marginTop="7dp"
                 android:textColor="@color/black"
@@ -40,7 +40,7 @@
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list_users"
+            android:id="@+id/list_friends"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="4dp"
             android:layout_width="match_parent"

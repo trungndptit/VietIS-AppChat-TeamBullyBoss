@@ -1,10 +1,7 @@
 package com.vietis.bullybosschat;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -20,93 +17,37 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-import com.vietis.bullybosschat.adapter.AddUserAdapter;
+import com.vietis.bullybosschat.adapter.AllMyFriendsAdapter;
 import com.vietis.bullybosschat.model.User;
 
 import java.util.ArrayList;
 
-public class AddUsersActivity extends AppCompatActivity {
-
-    private EditText mTextSearch;
-    private ImageView mImageAddFriend;
-    private ImageView mImageBack;
-    private RecyclerView rvListUsers;
-    private AddUserAdapter addUserAdapter;
+public class AllMyFriendsActivity extends AppCompatActivity {
+    private ImageView mImgBack;
+    private RecyclerView rvListFriends;
+    private AllMyFriendsAdapter allMyFriendsAdapter;
     private ArrayList<User> mUsers;
     private ArrayList<String> friendsId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_users);
+        setContentView(R.layout.activity_all_my_friends);
 
         initView();
-        rvListUsers.setHasFixedSize(true);
-        rvListUsers.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+        rvListFriends.setHasFixedSize(true);
+        rvListFriends.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mUsers = new ArrayList<>();
 
         getFriendId();
         readUser();
 
-//        mImageAddFriend.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(AddUsersActivity.this, AddUsersActivity.class);
-//                startActivity(intent);
-//            }
-//        });
 
-        mImageBack.setOnClickListener(new View.OnClickListener() {
+        mImgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
-            }
-        });
-
-        mTextSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                searchUsers(charSequence.toString().toLowerCase());
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-    }
-
-    private void searchUsers(String s) {
-        final FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
-        Query query = FirebaseDatabase.getInstance().getReference("Users").orderByChild("search")
-                .startAt(s)
-                .endAt(s + "\uf8ff");
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mUsers.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    User user = snapshot.getValue(User.class);
-                    if (!user.getId().equals(fuser.getUid())){
-                        mUsers.add(user);
-                    }
-                }
-                addUserAdapter = new AddUserAdapter(getApplicationContext(), mUsers);
-                rvListUsers.setAdapter(addUserAdapter);
-                addUserAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                finish();;
             }
         });
     }
@@ -155,19 +96,20 @@ public class AddUsersActivity extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 User user = dataSnapshot.getValue(User.class);
                 if (!user.getId().equals(fuser.getUid())) {
-                    int count = 0;
+//                    int count = 0;
                     for (String id : friendsId) {
-                        if (user.getId().equals(id)) {
-                            count++;
-                        }
-                    }
-                    if (count == 0){
                         mUsers.add(user);
+//                        if (user.getId().equals(id)) {
+//                            count++;
+//                        }
                     }
+//                    if (count == 0){
+//                        mUsers.add(user);
+//                    }
                 }
-                addUserAdapter = new AddUserAdapter(getApplicationContext(), mUsers);
-                rvListUsers.setAdapter(addUserAdapter);
-                addUserAdapter.notifyDataSetChanged();
+                allMyFriendsAdapter = new AllMyFriendsAdapter(getApplicationContext(), mUsers);
+                rvListFriends.setAdapter(allMyFriendsAdapter);
+                allMyFriendsAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -193,9 +135,7 @@ public class AddUsersActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        mTextSearch = findViewById(R.id.text_search);
-        rvListUsers = findViewById(R.id.list_users);
-        mImageAddFriend = findViewById(R.id.image_add_friend);
-        mImageBack = findViewById(R.id.image_view_back);
+        mImgBack = findViewById(R.id.image_view_back);
+        rvListFriends = findViewById(R.id.list_friends);
     }
 }

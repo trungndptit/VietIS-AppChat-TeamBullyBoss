@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.vietis.bullybosschat.AddUsersActivity;
+import com.vietis.bullybosschat.AllMyFriendsActivity;
 import com.vietis.bullybosschat.R;
 import com.vietis.bullybosschat.adapter.OnlineFriendAdapter;
 import com.vietis.bullybosschat.model.User;
@@ -35,10 +36,12 @@ import java.util.ArrayList;
 public class OnlineFriendFragment extends Fragment {
     EditText mTextSearch;
     private ImageView mImageAddFriend;
+    private ImageView mImageAllFriend;
 
     private RecyclerView rvListOnline;
     private OnlineFriendAdapter onlineFriendAdapter;
     private ArrayList<User> mUsers;
+    private ArrayList<String> friendsId;
 
     @Nullable
     @Override
@@ -50,12 +53,21 @@ public class OnlineFriendFragment extends Fragment {
         rvListOnline.setLayoutManager(new LinearLayoutManager(getContext()));
         mUsers = new ArrayList<>();
 
+        getFriendId();
         readUser();
 
         mImageAddFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), AddUsersActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mImageAllFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AllMyFriendsActivity.class);
                 startActivity(intent);
             }
         });
@@ -78,6 +90,27 @@ public class OnlineFriendFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void getFriendId() {
+        final FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
+        mData.child("Users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    User user = ds.getValue(User.class);
+                    if (user.getId().equals(fuser.getUid())) {
+                        friendsId = user.getFriends();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void searchUsers(String s) {
@@ -114,15 +147,18 @@ public class OnlineFriendFragment extends Fragment {
         mData.child("Users").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
                 User user = dataSnapshot.getValue(User.class);
-                if (!user.getId().equals(fuser.getUid()) && user.getState().equals("onl")){
-                    mUsers.add(user);
-                }
+                if (!user.getId().equals(fuser.getUid()) && user.getState().equals("onl")) {
+                    for (String id : friendsId) {
+                        if (user.getId().equals(id)) {
+                            mUsers.add(user);
+                        }
+                    }
 
-                onlineFriendAdapter = new OnlineFriendAdapter(getContext(), mUsers);
-                rvListOnline.setAdapter(onlineFriendAdapter);
-                onlineFriendAdapter.notifyDataSetChanged();
+                    onlineFriendAdapter = new OnlineFriendAdapter(getContext(), mUsers);
+                    rvListOnline.setAdapter(onlineFriendAdapter);
+                    onlineFriendAdapter.notifyDataSetChanged();
+                }
             }
 
             @Override
@@ -151,5 +187,7 @@ public class OnlineFriendFragment extends Fragment {
         mTextSearch = view.findViewById(R.id.text_search);
         rvListOnline = view.findViewById(R.id.list_friend_online);
         mImageAddFriend = view.findViewById(R.id.image_add_friend);
+        mImageAllFriend = view.findViewById(R.id.image_all_friend);
     }
 }
+
