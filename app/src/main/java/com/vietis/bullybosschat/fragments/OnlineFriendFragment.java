@@ -34,7 +34,7 @@ import com.vietis.bullybosschat.model.User;
 import java.util.ArrayList;
 
 public class OnlineFriendFragment extends Fragment {
-    EditText mTextSearch;
+    private EditText mTextSearch;
     private ImageView mImageAddFriend;
     private ImageView mImageAllFriend;
 

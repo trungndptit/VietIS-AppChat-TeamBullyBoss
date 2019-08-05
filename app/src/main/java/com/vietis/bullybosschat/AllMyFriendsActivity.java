@@ -90,26 +90,22 @@ public class AllMyFriendsActivity extends AppCompatActivity {
     private void readUser() {
         final FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
-        mUsers.clear();
+
         mData.child("Users").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 User user = dataSnapshot.getValue(User.class);
                 if (!user.getId().equals(fuser.getUid())) {
-//                    int count = 0;
                     for (String id : friendsId) {
-                        mUsers.add(user);
-//                        if (user.getId().equals(id)) {
-//                            count++;
-//                        }
+                        if (user.getId().equals(id)) {
+                            mUsers.add(user);
+                        }
                     }
-//                    if (count == 0){
-//                        mUsers.add(user);
-//                    }
+
+                    allMyFriendsAdapter = new AllMyFriendsAdapter(getApplicationContext(), mUsers);
+                    rvListFriends.setAdapter(allMyFriendsAdapter);
+                    allMyFriendsAdapter.notifyDataSetChanged();
                 }
-                allMyFriendsAdapter = new AllMyFriendsAdapter(getApplicationContext(), mUsers);
-                rvListFriends.setAdapter(allMyFriendsAdapter);
-                allMyFriendsAdapter.notifyDataSetChanged();
             }
 
             @Override
