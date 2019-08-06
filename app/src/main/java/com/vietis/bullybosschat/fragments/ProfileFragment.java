@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -32,6 +33,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.vietis.bullybosschat.R;
+import com.vietis.bullybosschat.entrance.MainActivity;
 import com.vietis.bullybosschat.model.User;
 
 import java.util.HashMap;
@@ -50,6 +52,7 @@ public class ProfileFragment extends Fragment {
     private TextView mTextTow;
     private TextView mTextFriend;
     private TextView mTextFollow;
+    private ImageView mImageLogout;
     private DatabaseReference mReference;
 
     private FirebaseUser user;
@@ -59,7 +62,6 @@ public class ProfileFragment extends Fragment {
     private StorageTask mUpLoadTask;
     private Uri mUrl;
 
-    private String UriImage;
 
     @Nullable
     @Override
@@ -73,7 +75,7 @@ public class ProfileFragment extends Fragment {
         mTextTow = view.findViewById(R.id.text_two);
         mTextFriend = view.findViewById(R.id.text_friend);
         mTextFollow = view.findViewById(R.id.text_follow);
-
+        mImageLogout =  view.findViewById(R.id.image_logout);
 
         mImageAvatar = view.findViewById(R.id.image_avatar);
         mTextName = view.findViewById(R.id.txt_name);
@@ -83,7 +85,6 @@ public class ProfileFragment extends Fragment {
 
         final String idUser = user.getUid();
         mReference = FirebaseDatabase.getInstance().getReference();
-
         mStorageReference = FirebaseStorage.getInstance().getReference("uploads");
         mReference.child("Users").addChildEventListener(new ChildEventListener() {
             @Override
@@ -93,14 +94,14 @@ public class ProfileFragment extends Fragment {
                 if (idUser.equals(user.getId())) {
                     mTextName.setText(user.getUsername());
                     tvFriends.setText(String.valueOf(user.getFriends().size()));
-//                    if (user.getImageurl().equals("default")) {
-//                        mImageAvatar.setImageResource(R.drawable.anh1);
-//                    } else {
-//                        Glide.with(getActivity())
-//                                .load(user.getImageurl())
-//                                .circleCrop()
-//                                .into(mImageAvatar);
-//                    }
+                    if (user.getImageurl().equals("default")) {
+                        mImageAvatar.setImageResource(R.drawable.anh1);
+                    } else {
+                        Glide.with(getActivity())
+                                .load(user.getImageurl())
+                                .circleCrop()
+                                .into(mImageAvatar);
+                    }
                 }
             }
 
@@ -131,16 +132,27 @@ public class ProfileFragment extends Fragment {
     }
 
     private void addListner() {
+
+        mImageLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getActivity().getApplication(), MainActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
         mUpdateAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                chooseImage();
+                chooseImageAvatar();
             }
         });
     }
 
-    private void chooseImage() {
+    private void chooseImageAvatar() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -167,7 +179,8 @@ public class ProfileFragment extends Fragment {
                 @Override
                 public Object then(@NonNull Task task) throws Exception {
                     if (!task.isSuccessful()) {
-                        Toast.makeText(getContext(), "upload image fail", Toast.LENGTH_SHORT).show();
+                        throw task.getException();
+//                        Toast.makeText(getContext(), "upload image fail", Toast.LENGTH_SHORT).show();
 
                     }
                     return storageFile.getDownloadUrl();
@@ -210,6 +223,7 @@ public class ProfileFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == IMAGE_CHOOSE && resultCode == RESULT_OK && data != null && data.getData() != null) {
             mUrl = data.getData();
+
             if (mUpLoadTask != null && mUpLoadTask.isInProgress()) {
                 Toast.makeText(getContext(), "image  is uploading", Toast.LENGTH_SHORT).show();
             } else {
