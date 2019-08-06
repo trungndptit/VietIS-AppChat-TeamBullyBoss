@@ -26,25 +26,20 @@
             android:textSize="21sp"
             android:textStyle="bold" />
 
-        <ImageButton
-            android:id="@+id/ib_contact_user_fragment"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="65dp"
-            android:background="@drawable/shape_oval_boder_gray"
-            android:padding="7dp"
-            android:src="@drawable/ic_contact_book" />
+        <ImageView
+            android:id="@+id/image_all_friend"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_toLeftOf="@+id/image_add_friend"
+            android:padding="5dp"
+            android:src="@drawable/ic_people_outline_black_24dp" />
 
-        <ImageButton
-            android:id="@+id/ib_add_friend_fragment"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+        <ImageView
+            android:id="@+id/image_add_friend"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/shape_oval_boder_gray"
+            android:layout_marginRight="10dp"
             android:padding="7dp"
             android:src="@drawable/ic_add_friends" />
     </RelativeLayout>

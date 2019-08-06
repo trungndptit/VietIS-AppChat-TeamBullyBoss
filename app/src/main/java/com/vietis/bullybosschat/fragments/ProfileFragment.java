@@ -46,8 +46,14 @@ public class ProfileFragment extends Fragment {
     private TextView mTextName;
     private TextView tvFriends;
 
-
+    private TextView tvFollows;
+    private TextView mTextOne;
+    private TextView mTextTow;
+    private TextView mTextFriend;
+    private TextView mTextFollow;
     private DatabaseReference reference;
+
+
 
     private FirebaseUser user;
     private StorageReference mStorageReference;
@@ -69,6 +75,7 @@ public class ProfileFragment extends Fragment {
         mTextName = view.findViewById(R.id.txt_name);
         tvFriends = view.findViewById(R.id.text_one);
         mUpdateAvatar = view.findViewById(R.id.image_edit_avatar);
+        tvFollows = view.findViewById(R.id.text_two);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -83,6 +90,15 @@ public class ProfileFragment extends Fragment {
                 if (idUser.equals(user.getId())) {
                     mTextName.setText(user.getUsername());
                     tvFriends.setText(String.valueOf(user.getFriends().size()));
+                    tvFollows.setText(String.valueOf(user.getFollows().size()-1));
+//                    if (user.getImageurl().equals("default")) {
+//                        mImageAvatar.setImageResource(R.drawable.anh1);
+//                    } else {
+//                        Glide.with(getActivity())
+//                                .load(user.getImageurl())
+//                                .circleCrop()
+//                                .into(mImageAvatar);
+//                    }
                 }
             }
 

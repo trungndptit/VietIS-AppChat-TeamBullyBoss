@@ -18,10 +18,8 @@ import com.vietis.bullybosschat.model.User;
 
 import java.util.ArrayList;
 
-public class AddUserAdapter extends RecyclerView.Adapter<AddUserAdapter.ViewHolder> {
+public class AddUserAdapter extends RecyclerView.Adapter<AddUserAdapter.ViewHolder>{
     public static final String USER_ID = "userID";
-
-
     private Context context;
     private ArrayList<User> users;
 
@@ -32,14 +30,13 @@ public class AddUserAdapter extends RecyclerView.Adapter<AddUserAdapter.ViewHold
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AddUserAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.add_users_item, parent, false);
         return new AddUserAdapter.ViewHolder(view);
-
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AddUserAdapter.ViewHolder holder, int position) {
         final User user = users.get(position);
         holder.tvUsername.setText(user.getUsername());
         if (user.getImageurl().equals("default")) {
@@ -47,7 +44,6 @@ public class AddUserAdapter extends RecyclerView.Adapter<AddUserAdapter.ViewHold
         } else {
             Glide.with(context).load(user.getImageurl()).into(holder.ivProfile);
         }
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,7 +67,8 @@ public class AddUserAdapter extends RecyclerView.Adapter<AddUserAdapter.ViewHold
         ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvUsername = itemView.findViewById(R.id.friend_name);
+
+            tvUsername = itemView.findViewById(R.id.add_friend_name);
             ivProfile = itemView.findViewById(R.id.friend_image);
         }
     }

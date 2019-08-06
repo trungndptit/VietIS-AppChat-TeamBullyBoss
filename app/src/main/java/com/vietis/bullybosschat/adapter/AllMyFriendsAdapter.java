@@ -1,7 +1,6 @@
 package com.vietis.bullybosschat.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,32 +12,29 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.vietis.bullybosschat.R;
-import com.vietis.bullybosschat.UserProfileAcitivity;
 import com.vietis.bullybosschat.model.User;
 
 import java.util.ArrayList;
 
-public class AllFriendsAdapter extends RecyclerView.Adapter<AllFriendsAdapter.ViewHolder>{
+public class AllMyFriendsAdapter extends RecyclerView.Adapter<AllMyFriendsAdapter.ViewHolder>{
     public static final String IS_FRIEND = "isFriend";
-
     private Context context;
     private ArrayList<User> users;
 
-    public AllFriendsAdapter(Context context, ArrayList<User> users) {
+    public AllMyFriendsAdapter(Context context, ArrayList<User> users) {
         this.context = context;
         this.users = users;
     }
 
     @NonNull
     @Override
-    public AllFriendsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AllMyFriendsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.all_my_friends_item, parent, false);
-        return new AllFriendsAdapter.ViewHolder(view);
-
+        return new AllMyFriendsAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AllFriendsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AllMyFriendsAdapter.ViewHolder holder, int position) {
         final User user = users.get(position);
         holder.tvUsername.setText(user.getUsername());
         if (user.getImageurl().equals("default")) {
@@ -46,16 +42,6 @@ public class AllFriendsAdapter extends RecyclerView.Adapter<AllFriendsAdapter.Vi
         } else {
             Glide.with(context).load(user.getImageurl()).into(holder.ivProfile);
         }
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent userProfile = new Intent(context, UserProfileAcitivity.class);
-                userProfile.putExtra(AddUserAdapter.USER_ID, user.getId());
-                userProfile.putExtra(IS_FRIEND, "true");
-                context.startActivity(userProfile);
-            }
-        });
     }
 
     @Override

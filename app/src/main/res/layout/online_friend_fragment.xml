@@ -51,10 +51,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-            <TextView
+            <EditText
+                android:background="@null"
                 android:id="@+id/text_search"
                 android:layout_weight="9"
-                android:hint="Search..."
+                android:hint="Search"
                 android:textSize="15sp"
                 android:textColor="@color/black80"
                 android:layout_width="0dp"

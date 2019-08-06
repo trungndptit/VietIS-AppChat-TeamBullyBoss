@@ -1,12 +1,14 @@
 package com.vietis.bullybosschat;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -15,43 +17,51 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.vietis.bullybosschat.adapter.AllFriendsAdapter;
+import com.vietis.bullybosschat.adapter.AllMyFriendsAdapter;
 import com.vietis.bullybosschat.model.User;
 
 import java.util.ArrayList;
 
-public class AllFriendsActivity extends AppCompatActivity {
-
-    RecyclerView rvListUser;
-    private AllFriendsAdapter allFriendsAdapter;
-    private ArrayList<User> users;
-    private ArrayList<String> friendsID;
+public class AllMyFriendsActivity extends AppCompatActivity {
+    private ImageView mImgBack;
+    private RecyclerView rvListFriends;
+    private AllMyFriendsAdapter allMyFriendsAdapter;
+    private ArrayList<User> mUsers;
+    private ArrayList<String> friendsId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_friends);
-        setInit();
-        rvListUser.setHasFixedSize(true);
-        rvListUser.setLayoutManager(new LinearLayoutManager(this));
+        setContentView(R.layout.activity_all_my_friends);
 
-        users = new ArrayList<>();
-        friendsID = new ArrayList<>();
+        initView();
 
+        rvListFriends.setHasFixedSize(true);
+        rvListFriends.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        mUsers = new ArrayList<>();
+
+        getFriendId();
         readUser();
+
+
+        mImgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();;
+            }
+        });
     }
 
-    private void loadFriend(){
-        FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
-        final String myid = fuser.getUid();
-        friendsID.clear();
+    private void getFriendId() {
+        final FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
+        friendsId = new ArrayList<>();
         mData.child("Users").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 User user = dataSnapshot.getValue(User.class);
-                if (user.getId().equals(myid)){
-                    friendsID = user.getFriends();
+                if (user.getId().equals(fuser.getUid())) {
+                    friendsId = user.getFriends();
                 }
             }
 
@@ -75,27 +85,27 @@ public class AllFriendsActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     private void readUser() {
-        FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
-        final String myid = fuser.getUid();
+        final FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
-        loadFriend();
+
         mData.child("Users").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 User user = dataSnapshot.getValue(User.class);
-                for (String id : friendsID){
-                    if (user.getId().equals(id)){
-                        users.add(user);
+                if (!user.getId().equals(fuser.getUid())) {
+                    for (String id : friendsId) {
+                        if (user.getId().equals(id)) {
+                            mUsers.add(user);
+                        }
                     }
-                }
 
-                allFriendsAdapter = new AllFriendsAdapter(AllFriendsActivity.this, users);
-                rvListUser.setAdapter(allFriendsAdapter);
-                allFriendsAdapter.notifyDataSetChanged();
+                    allMyFriendsAdapter = new AllMyFriendsAdapter(getApplicationContext(), mUsers);
+                    rvListFriends.setAdapter(allMyFriendsAdapter);
+                    allMyFriendsAdapter.notifyDataSetChanged();
+                }
             }
 
             @Override
@@ -120,7 +130,8 @@ public class AllFriendsActivity extends AppCompatActivity {
         });
     }
 
-    private void setInit() {
-        rvListUser = findViewById(R.id.rv_all_friends);
+    private void initView() {
+        mImgBack = findViewById(R.id.image_view_back);
+        rvListFriends = findViewById(R.id.list_friends);
     }
 }
