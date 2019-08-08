@@ -31,9 +31,14 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.vietis.bullybosschat.R;
 import com.vietis.bullybosschat.cache.PrefUtils;
 import com.vietis.bullybosschat.fragments.HomeChatActivity;
+import com.vietis.bullybosschat.utils.Constants;
+
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -96,9 +101,10 @@ public class MainActivity extends AppCompatActivity {
         mTextRegitser = findViewById(R.id.text_sigup);
         mButtonEmail = findViewById(R.id.button_login_email);
         mLoginFb = findViewById(R.id.loginfb_button);
-        mLoginGg =  findViewById(R.id.loginGg_button);
+        mLoginGg = findViewById(R.id.loginGg_button);
         mButtonFb = findViewById(R.id.btn_fb);
-        mButtonGg =  findViewById(R.id.btn_gg);
+        mButtonGg = findViewById(R.id.btn_gg);
+
     }
 
     private void initLoginWithGg() {
@@ -112,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initLoginWithFb() {
+
         mCallBackManager = CallbackManager.Factory.create();
         mLoginFb.setReadPermissions("email", "public_profile");
         mLoginFb.registerCallback(mCallBackManager, new FacebookCallback<LoginResult>() {
@@ -119,8 +126,7 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
-                Intent intent =  new Intent(MainActivity.this, HomeChatActivity.class);
-                startActivity(intent);
+
 
             }
 
@@ -145,18 +151,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void  onClickGoogleButton(View view){
-        if( view ==  mButtonGg){
+    public void onClickGoogleButton(View view) {
+        if (view == mButtonGg) {
             mLoginGg.performClick();
-            Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-            startActivityForResult(signInIntent, RC_GOOGLE_SIGN_IN);
+            signIn();
         }
+    }
+
+    private void signIn() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_GOOGLE_SIGN_IN);
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_GOOGLE_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
@@ -169,10 +178,12 @@ public class MainActivity extends AppCompatActivity {
                 // ...
             }
         }
+        mCallBackManager.onActivityResult(requestCode, resultCode, data);
+
+        super.onActivityResult(requestCode, resultCode, data);
 
 //
 //        // Pass the activity result back to the Facebook SDK
-        mCallBackManager.onActivityResult(requestCode, resultCode, data);
 
     }
 
@@ -185,12 +196,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(MainActivity.this, HomeChatActivity.class);
-                            startActivity(intent);
-                            finish();
+
+                            createNewUser();
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -210,9 +218,40 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 Log.d(TAG, "signInWithCredential" + task.isSuccessful());
-                if (!task.isSuccessful()) {
 
-                    Toast.makeText(MainActivity.this, "signInWithCredential Failed", Toast.LENGTH_SHORT).show();
+                if (task.isSuccessful()) {
+
+                    createNewUser();
+
+                }
+            }
+        });
+    }
+
+    private void createNewUser() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        String idUser = user.getUid();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users").child(idUser);
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("id", idUser);
+        hashMap.put("username", user.getDisplayName());
+        hashMap.put(Constants.ROW_AVATAR, "default");
+        hashMap.put("state", "off");
+        hashMap.put("search", "");
+        hashMap.put(Constants.ROW_COVER, "default");
+
+
+        reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+                if (task.isSuccessful()) {
+                    prefUtils.setCurrentUid(mAuth.getUid());
+                    Intent intent = new Intent(MainActivity.this, HomeChatActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(MainActivity.this, "Đã có lỗi đéo j xảy ra, vui lòng đửng thử lần 2 nhé , ok?", Toast.LENGTH_SHORT).show();
                 }
             }
         });

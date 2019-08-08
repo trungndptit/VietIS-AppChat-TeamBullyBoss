@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.vietis.bullybosschat.R;
 import com.vietis.bullybosschat.cache.PrefUtils;
+import com.vietis.bullybosschat.utils.Constants;
 
 import java.util.HashMap;
 
@@ -92,10 +93,10 @@ public class RegisterActivity extends AppCompatActivity {
                     HashMap<String, String> hashMap =  new HashMap<>();
                     hashMap.put("id", idUser);
                     hashMap.put("username",username);
-                    hashMap.put("imageurl", "default");
+                    hashMap.put(Constants.ROW_AVATAR, "default");
                     hashMap.put("state","off");
                     hashMap.put("search",username.toLowerCase());
-
+                    hashMap.put(Constants.ROW_COVER, "default");
 
                     reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

@@ -8,6 +8,15 @@ public class User {
     private String state;
     private String username;
     private String search;
+    private  String imagecover;
+
+    public void setImagecover(String imagecover) {
+        this.imagecover = imagecover;
+    }
+
+    public String getImagecover() {
+        return imagecover;
+    }
 
     public String getSearch() {
         return search;
@@ -17,7 +26,7 @@ public class User {
         this.search = search;
     }
 
-    private ArrayList<String> friends;
+    private ArrayList<String> friends = new ArrayList<>();
 
     public ArrayList<String> getFriends() {
         return friends;
@@ -59,13 +68,14 @@ public class User {
         this.username = username;
     }
 
-    public User(String id, String imageurl, String state, String username, String search, ArrayList<String> friends) {
+    public User(String id, String imageurl, String state, String username, String search,String imagecover, ArrayList<String> friends) {
         this.id = id;
         this.imageurl = imageurl;
         this.state = state;
         this.username = username;
         this.search = search;
         this.friends = friends;
+        this.imagecover =  imagecover;
     }
 
     public User() {

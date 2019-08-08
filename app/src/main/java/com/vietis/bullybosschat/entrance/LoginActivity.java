@@ -42,6 +42,9 @@ public class LoginActivity extends AppCompatActivity {
         mButtonLogin = findViewById(R.id.button_login);
         addListner();
 
+        mInputEmail.setText("dieu@gmail.com");
+        mInputPasword.setText("111111");
+
     }
 
     private void addListner() {
