@@ -124,8 +124,12 @@ public class OnlineFriendFragment extends Fragment {
                 mUsers.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     User user = snapshot.getValue(User.class);
-                    if (!user.getId().equals(fuser.getUid())){
-                        mUsers.add(user);
+                    if (!user.getId().equals(fuser.getUid()) && user.getState().equals("onl")){
+                        for (String id : friendsId) {
+                            if (user.getId().equals(id)) {
+                                mUsers.add(user);
+                            }
+                        }
                     }
                 }
                 onlineFriendAdapter = new OnlineFriendAdapter(getContext(), mUsers);

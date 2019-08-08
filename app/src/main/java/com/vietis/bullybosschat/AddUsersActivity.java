@@ -53,7 +53,7 @@ public class AddUsersActivity extends AppCompatActivity {
 //        mImageAddFriend.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                Intent intent = new Intent(AddUsersActivity.this, AddUsersActivity.class);
+//                Intent intent = new Intent(AddUsersActivity.this, UserProfileAcitivity.class);
 //                startActivity(intent);
 //            }
 //        });
@@ -96,7 +96,11 @@ public class AddUsersActivity extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     User user = snapshot.getValue(User.class);
                     if (!user.getId().equals(fuser.getUid())){
-                        mUsers.add(user);
+                        for (String id : friendsId) {
+                            if (!user.getId().equals(id)) {
+                                mUsers.add(user);
+                            }
+                        }
                     }
                 }
                 addUserAdapter = new AddUserAdapter(getApplicationContext(), mUsers);
