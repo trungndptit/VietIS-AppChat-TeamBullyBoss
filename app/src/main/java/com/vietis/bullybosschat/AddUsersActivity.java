@@ -96,10 +96,14 @@ public class AddUsersActivity extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     User user = snapshot.getValue(User.class);
                     if (!user.getId().equals(fuser.getUid())){
+                        int count = 0;
                         for (String id : friendsId) {
-                            if (!user.getId().equals(id)) {
-                                mUsers.add(user);
+                            if (user.getId().equals(id)) {
+                                count++;
                             }
+                        }
+                        if (count == 0){
+                            mUsers.add(user);
                         }
                     }
                 }
