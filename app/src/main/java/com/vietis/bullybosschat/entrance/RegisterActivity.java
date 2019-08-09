@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.vietis.bullybosschat.R;
 import com.vietis.bullybosschat.cache.PrefUtils;
+import com.vietis.bullybosschat.fragments.HomeChatActivity;
 import com.vietis.bullybosschat.utils.Constants;
 
 import java.util.HashMap;
@@ -105,7 +106,7 @@ public class RegisterActivity extends AppCompatActivity {
                             if (task.isSuccessful()){
                                 prefUtils.setCurrentUid(mAuth.getUid());
                                 Toast.makeText(RegisterActivity.this, "register successful", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                Intent intent = new Intent(RegisterActivity.this, HomeChatActivity.class);
                                 startActivity(intent);
                                 finish();
                             }
