@@ -1,15 +1,12 @@
 package com.vietis.bullybosschat.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -76,29 +73,6 @@ public class OnlineFriendFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-//        mTextSearch.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-
-//        mImageAddFriend.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), AddUsersActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//                ll_search_online_list.setOnTouchListener(new View.OnTouchListener() {
-//                    @Override
-//                    public boolean onTouch(View view, MotionEvent motionEvent) {
-//                        System.out.println("Debug: onTouch");
-//                        mTextSearch.requestFocus();
-//                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-//                        imm.showSoftInput(mTextSearch, InputMethodManager.SHOW_IMPLICIT);
-//                        return true;
-//                    }
-//                });
 
         mTextSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -220,16 +194,3 @@ public class OnlineFriendFragment extends Fragment {
         mImageAllFriend = view.findViewById(R.id.image_all_friend);
     }
 }
-
-
-//        private void initToolbar () {
-//            AppCompatActivity activity = (AppCompatActivity) getActivity();
-//            activity.setSupportActionBar(mToolbar);
-//        Glide.with(getActivity())
-//                .load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtk3oX9Z6oUrvf5Lb4qWr5w4GWlAsX5P3w6Y_FIrdH6YHL7Sme")
-//                .circleCrop()
-//                .into(mImageAvatar);
-
-
-
-

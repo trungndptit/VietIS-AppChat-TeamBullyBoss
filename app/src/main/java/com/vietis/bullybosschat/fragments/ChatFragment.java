@@ -30,7 +30,7 @@ import com.vietis.bullybosschat.model.User;
 
 import java.util.ArrayList;
 
-public class ChatFragment  extends Fragment {
+public class ChatFragment extends Fragment {
 
 
     RecyclerView rvWhomChat;
@@ -56,50 +56,41 @@ public class ChatFragment  extends Fragment {
         setInit(view);
         rvWhomChat.setHasFixedSize(true);
         rvWhomChat.setLayoutManager(new LinearLayoutManager(getContext()));
-//        Glide.with(getActivity())
-//                .load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtk3oX9Z6oUrvf5Lb4qWr5w4GWlAsX5P3w6Y_FIrdH6YHL7Sme")
-//                .circleCrop()
-//                .into(mImageAvatar);
 
         mData.child("Chats").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 userList.clear();
-                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Message message = ds.getValue(Message.class);
 
-                    if (message.getSender().equals(fuser.getUid())){
-                        if (checkUserID(userList, message.getReceiver())){
+                    if (message.getSender().equals(fuser.getUid())) {
+                        if (checkUserID(userList, message.getReceiver())) {
                             userList.add(message.getReceiver());
                         }
                     }
-                    if (message.getReceiver().equals(fuser.getUid())){
-                        if (checkUserID(userList, message.getSender())){
+                    if (message.getReceiver().equals(fuser.getUid())) {
+                        if (checkUserID(userList, message.getSender())) {
                             userList.add(message.getSender());
                         }
                     }
                 }
-
                 loadChat();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
-
-//        initToolbar();
-//        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Chat");
         return view;
     }
 
-    private boolean checkUserID(ArrayList<String> mIDs, String id){
-        if (mIDs.size() == 0){
+    private boolean checkUserID(ArrayList<String> mIDs, String id) {
+        if (mIDs.size() == 0) {
             return true;
         } else {
-            for (String mid : mIDs){
-                if (mid.equals(id)){
+            for (String mid : mIDs) {
+                if (mid.equals(id)) {
                     return false;
                 }
             }
@@ -116,29 +107,14 @@ public class ChatFragment  extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 users.clear();
 
-                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     User user = ds.getValue(User.class);
 
-                    for (String id : userList){
+                    for (String id : userList) {
 
-                        if (user.getId().equals(id)){
+                        if (user.getId().equals(id)) {
                             users.add(user);
                         }
-//                        if (user.getId().equals(id)){
-//                            if (listIterator.hasNext()){
-//
-//                                while (listIterator.hasNext()){
-//                                    User user1 = (User) listIterator.next();
-//                                    if (!user.getId().equals(user1.getId())){
-//                                        listIterator.add(user);
-//                                        users.add(user);
-//                                    }
-//                                }
-//                            } else {
-//                                listIterator.add(user);
-//                                users.add(user);
-//                            }
-//                        }
                     }
                 }
 
@@ -154,20 +130,8 @@ public class ChatFragment  extends Fragment {
         });
     }
 
-    private void setInit(View view){
+    private void setInit(View view) {
         rvWhomChat = view.findViewById(R.id.rv_whom_chat);
         mImageAvatar = view.findViewById(R.id.image_avatar);
     }
-
-//    private void initToolbar() {
-//        AppCompatActivity activity = (AppCompatActivity) getActivity();
-//        activity.setSupportActionBar(mToolbar);
-//        Glide.with(getActivity())
-//                .load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtk3oX9Z6oUrvf5Lb4qWr5w4GWlAsX5P3w6Y_FIrdH6YHL7Sme")
-//                .circleCrop()
-//                .into(mImageAvatar);
-//
-//    }
-
-
 }

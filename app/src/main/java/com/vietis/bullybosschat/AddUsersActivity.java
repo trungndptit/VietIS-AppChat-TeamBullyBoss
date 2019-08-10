@@ -53,14 +53,6 @@ public class AddUsersActivity extends AppCompatActivity {
         getFriendId();
         readUser();
 
-//        mImageAddFriend.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(AddUsersActivity.this, AddUsersActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-
         mImageBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

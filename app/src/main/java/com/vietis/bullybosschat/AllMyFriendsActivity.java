@@ -61,7 +61,12 @@ public class AllMyFriendsActivity extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 User user = dataSnapshot.getValue(User.class);
                 if (user.getId().equals(fuser.getUid())) {
-                    friendsId = user.getFriends();
+                    if (user.getFriends() == null){
+                        friendsId = new ArrayList<>();
+                    } else {
+                        friendsId = user.getFriends();
+                    }
+
                 }
             }
 
