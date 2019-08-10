@@ -20,6 +20,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.vietis.bullybosschat.R;
+import com.vietis.bullybosschat.cache.PrefUtils;
+import com.vietis.bullybosschat.fragments.HomeChatActivity;
+import com.vietis.bullybosschat.utils.Constants;
 
 import java.util.HashMap;
 
@@ -39,12 +42,14 @@ public class RegisterActivity extends AppCompatActivity {
 
     private ImageButton mImageBack;
     private DatabaseReference reference;
+    private PrefUtils prefUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         mAuth =  FirebaseAuth.getInstance();
+        prefUtils = PrefUtils.getIntance(this);
         mInputEmail =  findViewById(R.id.input_email);
         mInputName =  findViewById(R.id.input_name);
         mInputPasword =  findViewById(R.id.input_password);
@@ -89,18 +94,19 @@ public class RegisterActivity extends AppCompatActivity {
                     HashMap<String, String> hashMap =  new HashMap<>();
                     hashMap.put("id", idUser);
                     hashMap.put("username",username);
-                    hashMap.put("imageurl", "default");
+                    hashMap.put(Constants.ROW_AVATAR, "default");
                     hashMap.put("state","off");
                     hashMap.put("search",username.toLowerCase());
-
+                    hashMap.put(Constants.ROW_COVER, "default");
 
                     reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
 
                             if (task.isSuccessful()){
+                                prefUtils.setCurrentUid(mAuth.getUid());
                                 Toast.makeText(RegisterActivity.this, "register successful", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                Intent intent = new Intent(RegisterActivity.this, HomeChatActivity.class);
                                 startActivity(intent);
                                 finish();
                             }

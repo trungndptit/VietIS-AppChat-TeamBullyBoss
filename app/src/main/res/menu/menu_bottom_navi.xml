@@ -12,7 +12,7 @@
         android:title="friends" />
 
     <item
-        android:title="bot"
+        android:title="profile"
         android:id="@+id/menu_profile"
         android:icon="@drawable/ic_profile_"/>
 
