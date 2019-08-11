@@ -14,10 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".RoomChatActivity"></activity>
-        <activity android:name=".AllMyFriendsActivity" />
-        <activity android:name=".UserProfileAcitivity" />
-        <activity android:name=".AddUsersActivity" />
         <activity android:name=".fragments.HomeChatActivity" />
         <activity android:name=".entrance.RegisterActivity" />
         <activity android:name=".entrance.LoginActivity" />
