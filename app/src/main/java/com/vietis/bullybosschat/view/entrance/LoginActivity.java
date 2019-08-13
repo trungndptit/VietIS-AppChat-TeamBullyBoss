@@ -1,4 +1,4 @@
-package com.vietis.bullybosschat.entrance;
+package com.vietis.bullybosschat.view.entrance;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +18,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.vietis.bullybosschat.R;
 import com.vietis.bullybosschat.cache.PrefUtils;
-import com.vietis.bullybosschat.fragments.HomeChatActivity;
+import com.vietis.bullybosschat.view.fragments.HomeChatActivity;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText mInputEmail;
@@ -28,13 +28,13 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
-    private PrefUtils prefUtils;
+//    private PrefUtils prefUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        prefUtils = PrefUtils.getIntance(this);
+//        prefUtils = PrefUtils.getIntance(this);
         mAuth = FirebaseAuth.getInstance();
         mInputEmail = findViewById(R.id.et_email);
         mInputPasword = findViewById(R.id.et_password);
@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                prefUtils.setCurrentUid(mAuth.getUid());
+//                                prefUtils.setCurrentUid(mAuth.getUid());
                                 Intent intent = new Intent(LoginActivity.this, HomeChatActivity.class);
                                 startActivity(intent);
                                 finish();
@@ -73,7 +73,6 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
                 }
-
             }
         });
 

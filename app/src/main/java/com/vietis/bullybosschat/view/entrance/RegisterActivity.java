@@ -1,4 +1,4 @@
-package com.vietis.bullybosschat.entrance;
+package com.vietis.bullybosschat.view.entrance;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,7 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.vietis.bullybosschat.R;
 import com.vietis.bullybosschat.cache.PrefUtils;
-import com.vietis.bullybosschat.fragments.HomeChatActivity;
+import com.vietis.bullybosschat.view.fragments.HomeChatActivity;
 import com.vietis.bullybosschat.utils.Constants;
 
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package com.vietis.bullybosschat;
+package com.vietis.bullybosschat.view;
 
 
 import androidx.annotation.NonNull;
@@ -24,8 +24,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.vietis.bullybosschat.adapter.RoomChatAdapter;
-import com.vietis.bullybosschat.fragments.HomeChatActivity;
+import com.vietis.bullybosschat.R;
+import com.vietis.bullybosschat.view.adapter.RoomChatAdapter;
+import com.vietis.bullybosschat.view.fragments.HomeChatActivity;
 import com.vietis.bullybosschat.model.Message;
 import com.vietis.bullybosschat.model.User;
 

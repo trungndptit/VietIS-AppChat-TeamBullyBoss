@@ -1,184 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <RelativeLayout
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <data>
+        <variable
+            name="profileviewmodel"
+            type="com.vietis.bullybosschat.viewmodel.ProfileActivityViewModel" />
+
+    </data>
+    
+    <ScrollView 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/image_background"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="230dp"
-            android:layout_marginLeft="18dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/anhbia1"
-            android:layout_marginRight="18dp" />
-        <ImageButton
-            android:id="@+id/image_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:layout_alignLeft="@id/image_background"
-            android:layout_alignTop="@id/image_background"
-            android:background="@drawable/ic_back" />
-
-        <ImageView
-            android:id="@+id/image_edit_cover"
-            android:layout_width="40dp"
-            android:layout_height="32dp"
-            android:layout_alignRight="@id/image_background"
-            android:layout_alignBottom="@id/image_background"
-            android:layout_margin="10dp"
-            android:background="@drawable/round_corner_gray_6"
-            android:clickable="true"
-            android:paddingLeft="10dp"
-            android:paddingTop="3dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="3dp"
-            android:src="@drawable/ic_camera" />
-
-        <ImageView
-            android:id="@+id/image_avatar"
-            android:layout_width="180dp"
-            android:src="@drawable/anh1"
-            android:layout_height="180dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="140dp"
-            android:padding="3dp" />
-
-        <ImageView
-            android:id="@+id/image_edit_avatar"
-            android:layout_width="40dp"
-            android:layout_height="32dp"
-            android:layout_alignRight="@id/image_avatar"
-            android:layout_alignBottom="@id/image_avatar"
-            android:layout_margin="10dp"
-            android:clickable="true"
-            android:background="@drawable/round_corner_gray_6"
-            android:padding="6dp"
-            android:src="@drawable/ic_camera" />
-
-        <TextView
-            android:id="@+id/txt_name"
-            android:text="Viet vit"
-            android:textSize="23sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:layout_below="@id/image_avatar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:id="@+id/layout_one"
-            android:layout_below="@id/txt_name"
-            android:layout_width="match_parent"
-            android:layout_marginTop="50dp"
-            android:weightSum="4"
-            android:orientation="horizontal"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/text_friend_number"
-                android:layout_weight="2"
-                android:text="23"
-                android:textSize="23sp"
-                android:gravity="center"
-                android:textColor="@color/pinkLight"
+            <ImageView
+                android:id="@+id/image_background"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:scaleType="centerCrop"
+                app:urlBackground="@{profileviewmodel.urlBackground}" />
+
+            <ImageButton
+                android:id="@+id/image_back"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/image_background"
+                android:layout_alignTop="@id/image_background"
+                android:layout_marginLeft="12dp"
+                android:background="@drawable/ic_back" />
+
+            <ImageView
+                android:id="@+id/image_edit_cover"
+                android:layout_width="40dp"
+                android:layout_height="32dp"
+                android:layout_alignRight="@id/image_background"
+                android:layout_alignBottom="@id/image_background"
+                android:layout_margin="10dp"
+                android:background="@drawable/round_corner_gray_6"
+                android:clickable="true"
+                android:paddingLeft="10dp"
+                android:paddingTop="3dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="3dp"
+                android:src="@drawable/ic_camera" />
+
+            <ImageView
+                android:id="@+id/image_avatar"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="140dp"
+                android:padding="3dp"
+                app:urlImg="@{profileviewmodel.urlImg}"/>
+
+            <ImageView
+                android:id="@+id/image_edit_avatar"
+                android:layout_width="40dp"
+                android:layout_height="32dp"
+                android:layout_alignRight="@id/image_avatar"
+                android:layout_alignBottom="@id/image_avatar"
+                android:layout_margin="10dp"
+                android:background="@drawable/round_corner_gray_6"
+                android:clickable="true"
+                android:padding="6dp"
+                android:src="@drawable/ic_camera" />
 
             <TextView
-                android:id="@+id/text_follow_number"
-                android:layout_weight="2"
-                android:layout_width="0dp"
-                android:text="99+"
-                android:gravity="center"
-                android:textSize="23sp"
-                android:textColor="@color/pinkLight"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_tow"
-            android:layout_below="@id/layout_one"
-            android:layout_width="match_parent"
-            android:weightSum="4"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/text_friend"
-                android:layout_weight="2"
-                android:text="Friend"
+                android:id="@+id/txt_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/image_avatar"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:text="@{profileviewmodel.userName}"
                 android:textColor="@color/black"
-                android:textStyle="bold"
                 android:textSize="23sp"
-                android:gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textStyle="bold" />
 
+            <LinearLayout
+                android:id="@+id/layout_one"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_name"
+                android:layout_marginTop="50dp"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <TextView
+                    android:id="@+id/text_friend_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="@{profileviewmodel.numOfFriends}"
+                    android:textColor="@color/pinkLight"
+                    android:textSize="23sp" />
+
+                <TextView
+                    android:id="@+id/text_follow_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="@{profileviewmodel.numOfFollows}"
+                    android:textColor="@color/pinkLight"
+                    android:textSize="23sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_tow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_one"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <TextView
+                    android:id="@+id/text_friend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="Friend"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/text_follow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="Follow"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/image_add_friend"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/layout_tow"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="15dp"
+                android:visibility="@{profileviewmodel.visiable}"
+                android:background="@drawable/shape_oval_boder_gray"
+                android:src="@drawable/ic_add_friends" />
 
             <TextView
-                android:id="@+id/text_follow"
-                android:layout_weight="2"
-                android:text="Follow"
-                android:textStyle="bold"
-                android:textSize="23sp"
-                android:textColor="@color/black"
-                android:gravity="center"
+                android:id="@+id/text_add_friend"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_tow"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/image_add_friend"
+                android:text="@{profileviewmodel.addFriends}"
+                android:textSize="18sp" />
 
-        </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/image_add_friend"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_below="@id/layout_tow"
-            android:layout_marginLeft="35dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/shape_oval_boder_gray"
-            android:src="@drawable/ic_add_friends" />
-        <TextView
-            android:id="@+id/text_add_friend"
-            android:layout_toRightOf="@id/image_add_friend"
-            android:layout_below="@id/layout_tow"
-            android:text="Add Friend"
-            android:layout_marginLeft="15dp"
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:textSize="18sp"
-            android:layout_marginTop="20dp"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/text_follow1"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/layout_tow"
-            android:layout_marginRight="60dp"
-            android:textSize="18sp"
-            android:text="Follow"
-            android:layout_marginTop="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/text_follow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_tow"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="60dp"
+                android:text="@{profileviewmodel.follows}"
+                android:textSize="18sp" />
 
 
-        <ImageButton
-            android:id="@+id/image_follow"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_toLeftOf="@id/text_follow1"
-            android:layout_below="@id/layout_tow"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="15dp"
-            android:src="@drawable/ic_f"
-            android:background="@drawable/shape_oval_boder_gray" />
+            <ImageButton
+                android:id="@+id/image_follow"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/layout_tow"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="10dp"
+                android:visibility="@{profileviewmodel.visiable}"
+                android:layout_toLeftOf="@id/text_follow1"
+                android:background="@drawable/shape_oval_boder_gray"
+                android:src="@drawable/ic_f" />
 
 
-    </RelativeLayout>
-</ScrollView>
+        </RelativeLayout>
+    </ScrollView>
+</layout>

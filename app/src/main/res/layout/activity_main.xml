@@ -1,89 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/backgroundwelcome"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:label="@string/app_name"
-    tools:context=".entrance.MainActivity">
 
-    <LinearLayout
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="userloginevent"
+            type="com.vietis.bullybosschat.commands.Entrance" />
+    </data>
+
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="4">
+        android:background="@drawable/backgroundwelcome"
+        android:label="@string/app_name"
+        tools:context=".view.entrance.MainActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="4">
 
-            <TextView
-                android:id="@+id/textView"
-                style="@style/TextTitle"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="50dp"
-                android:text="Welcome!"
-                android:textColor="@android:color/white"
-                android:textSize="54sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView2"
-                style="@style/TextTitle"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="5dp"
-                android:text="Nice too see you"
-                android:textColor="@color/white30"
-                android:textSize="25sp" />
+                <TextView
+                    android:id="@+id/textView"
+                    style="@style/TextTitle"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="50dp"
+                    android:text="Welcome!"
+                    android:textColor="@android:color/white"
+                    android:textSize="54sp" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    style="@style/TextTitle"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Nice too see you"
+                    android:textColor="@color/white30"
+                    android:textSize="25sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="40dp"
+                android:layout_weight="3"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/button_login_email"
+                    android:layout_width="300dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="7dp"
+                    android:onClick="@{(v)->userloginevent.onClickLoginEmail()}"
+                    android:background="@drawable/round_conner_login_email_lightblue"
+                    android:gravity="center"
+                    android:text="Login  with Email" />
+
+                <include
+                    android:id="@+id/button_login_gg"
+                    layout="@layout/custom_button_login_gg"
+                    android:layout_width="300dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="7dp" />
+
+                <include
+                    android:id="@+id/button_login_fb"
+                    layout="@layout/custom_button_login_facebook"
+                    android:layout_width="300dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="7dp" />
+
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/text_sigup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="40dp"
-            android:layout_weight="3"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="28dp"
+            android:layout_marginBottom="15dp"
+            android:text="You do not have account? Register!"
+            android:onClick="@{(v)->userloginevent.onClickRegister()}"
+            android:textColor="@color/pinkLight"
+            android:textSize="18sp"
+            android:textStyle="italic" />
 
-            <Button
-                android:id="@+id/button_login_email"
-                android:layout_width="300dp"
-                android:layout_height="60dp"
-                android:layout_margin="7dp"
-                android:background="@drawable/round_conner_login_email_lightblue"
-                android:gravity="center"
-                android:text="Login  with Email" />
-
-            <include
-                android:id="@+id/button_login_gg"
-                android:layout_width="300dp"
-                android:layout_height="60dp"
-                android:layout_margin="7dp"
-                layout="@layout/custom_button_login_gg" />
-
-            <include
-                android:id="@+id/button_login_fb"
-                android:layout_width="300dp"
-                android:layout_height="60dp"
-                android:layout_margin="7dp"
-                layout="@layout/custom_button_login_facebook" />
-
-        </LinearLayout>
-    </LinearLayout>
-
-<TextView
-    android:id="@+id/text_sigup"
-    android:text="You do not have account? Register!"
-    android:textColor="@color/pinkLight"
-    android:layout_marginBottom="15dp"
-    android:layout_marginLeft="28dp"
-    android:textStyle="italic"
-    android:textSize="18sp"
-    android:layout_alignParentBottom="true"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" />
-
-</RelativeLayout>
+    </RelativeLayout>
+</layout>

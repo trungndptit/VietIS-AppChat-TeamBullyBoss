@@ -1,4 +1,4 @@
-package com.vietis.bullybosschat.entrance;
+package com.vietis.bullybosschat.view.entrance;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -34,12 +36,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.vietis.bullybosschat.R;
 import com.vietis.bullybosschat.cache.PrefUtils;
-import com.vietis.bullybosschat.fragments.HomeChatActivity;
+import com.vietis.bullybosschat.commands.Entrance;
+import com.vietis.bullybosschat.databinding.ActivityMainBinding;
+import com.vietis.bullybosschat.view.fragments.HomeChatActivity;
 import com.vietis.bullybosschat.utils.Constants;
 
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ActivityMainBinding activityMainBinding;
 
     private TextView mTextRegitser;
     private Button mButtonEmail;
@@ -63,7 +69,35 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+//        setContentView(R.layout.activity_main);
+        activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        activityMainBinding.setUserloginevent(new Entrance() {
+            @Override
+            public void onClickLoginEmail() {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onClickLoginFB() {
+
+            }
+
+            @Override
+            public void onClickLoginGG() {
+
+            }
+
+            @Override
+            public void onClickRegister() {
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
         prefUtils = PrefUtils.getIntance(this);
         checkLogined();
         initView();
@@ -238,7 +272,7 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
 
                 if (task.isSuccessful()) {
-                    prefUtils.setCurrentUid(mAuth.getUid());
+//                    prefUtils.setCurrentUid(mAuth.getUid());
                     Intent intent = new Intent(MainActivity.this, HomeChatActivity.class);
                     startActivity(intent);
                     finish();
@@ -251,23 +285,23 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void addlistner() {
-        mTextRegitser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+//        mTextRegitser.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
 
-        mButtonEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+//        mButtonEmail.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
     }
 
 

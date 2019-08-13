@@ -1,5 +1,13 @@
 package com.vietis.bullybosschat.model;
 
+import android.widget.ImageView;
+
+import androidx.databinding.BindingAdapter;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.vietis.bullybosschat.R;
+
 import java.util.ArrayList;
 
 public class User {

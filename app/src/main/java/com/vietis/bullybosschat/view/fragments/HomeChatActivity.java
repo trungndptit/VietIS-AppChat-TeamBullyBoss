@@ -1,4 +1,4 @@
-package com.vietis.bullybosschat.fragments;
+package com.vietis.bullybosschat.view.fragments;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,9 +10,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.vietis.bullybosschat.R;
-import com.vietis.bullybosschat.fragments.ChatFragment;
-import com.vietis.bullybosschat.fragments.OnlineFriendFragment;
-import com.vietis.bullybosschat.fragments.ProfileFragment;
+import com.vietis.bullybosschat.utils.Actions;
 
 public class HomeChatActivity extends AppCompatActivity {
 
@@ -25,6 +23,9 @@ public class HomeChatActivity extends AppCompatActivity {
         mBottomNavi = findViewById(R.id.view_bottom_navigation);
         loadFragment(new ChatFragment());
         initBottonNavi();
+        Actions actions = Actions.getInstance();
+
+//        System.out.println("Debug singleton imgurl: " + actions.getImgUrl());
     }
 
     private void loadFragment(Fragment fragment) {

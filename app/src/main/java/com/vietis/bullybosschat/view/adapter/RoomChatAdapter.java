@@ -1,4 +1,4 @@
-package com.vietis.bullybosschat.adapter;
+package com.vietis.bullybosschat.view.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

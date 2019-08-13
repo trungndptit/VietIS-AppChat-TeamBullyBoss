@@ -1,4 +1,4 @@
-package com.vietis.bullybosschat.adapter;
+package com.vietis.bullybosschat.view.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.vietis.bullybosschat.R;
 import com.vietis.bullybosschat.model.Message;
 import com.vietis.bullybosschat.model.User;
+import com.vietis.bullybosschat.view.RoomChatActivity;
 
 import java.util.ArrayList;
 

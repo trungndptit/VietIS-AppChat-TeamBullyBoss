@@ -1,21 +1,17 @@
-package com.vietis.bullybosschat.fragments;
+package com.vietis.bullybosschat.view.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,7 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.vietis.bullybosschat.R;
-import com.vietis.bullybosschat.adapter.WhomChatAdapter;
+import com.vietis.bullybosschat.view.adapter.WhomChatAdapter;
 import com.vietis.bullybosschat.model.Message;
 import com.vietis.bullybosschat.model.User;
 
