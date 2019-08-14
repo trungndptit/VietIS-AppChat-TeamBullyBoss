@@ -1,27 +1,27 @@
 package com.vietis.bullybosschat.fragments;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.vietis.bullybosschat.R;
 import com.vietis.bullybosschat.adapter.WhomChatAdapter;
@@ -40,6 +40,7 @@ public class ChatFragment  extends Fragment {
 
     private WhomChatAdapter whomChatAdapter;
     ImageView mImageAvatar;
+    EditText mTextSearch;
 
     FirebaseUser fuser;
     DatabaseReference mData;
@@ -60,6 +61,7 @@ public class ChatFragment  extends Fragment {
 //                .load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtk3oX9Z6oUrvf5Lb4qWr5w4GWlAsX5P3w6Y_FIrdH6YHL7Sme")
 //                .circleCrop()
 //                .into(mImageAvatar);
+
 
         mData.child("Chats").addValueEventListener(new ValueEventListener() {
             @Override
@@ -89,6 +91,23 @@ public class ChatFragment  extends Fragment {
             }
         });
 
+        mTextSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                searchUsers(charSequence.toString().toLowerCase());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
 //        initToolbar();
 //        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Chat");
         return view;
@@ -105,6 +124,37 @@ public class ChatFragment  extends Fragment {
             }
             return true;
         }
+    }
+
+    private void searchUsers(String s) {
+        final FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
+        Query query = FirebaseDatabase.getInstance().getReference("Users").orderByChild("search")
+                .startAt(s)
+                .endAt(s + "\uf8ff");
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                users.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    User user = snapshot.getValue(User.class);
+                    if (!user.getId().equals(fuser.getUid())){
+                        for (String id : userList) {
+                            if (user.getId().equals(id)) {
+                                users.add(user);
+                            }
+                        }
+                    }
+                }
+                whomChatAdapter = new WhomChatAdapter(getContext(), users);
+                rvWhomChat.setAdapter(whomChatAdapter);
+                whomChatAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void loadChat() {
@@ -157,6 +207,7 @@ public class ChatFragment  extends Fragment {
     private void setInit(View view){
         rvWhomChat = view.findViewById(R.id.rv_whom_chat);
         mImageAvatar = view.findViewById(R.id.image_avatar);
+        mTextSearch = view.findViewById(R.id.text_search);
     }
 
 //    private void initToolbar() {

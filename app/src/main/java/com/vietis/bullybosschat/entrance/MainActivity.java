@@ -1,8 +1,5 @@
 package com.vietis.bullybosschat.entrance;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -25,8 +25,8 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.vietis.bullybosschat.fragments.HomeChatActivity;
 import com.vietis.bullybosschat.R;
+import com.vietis.bullybosschat.fragments.HomeChatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
         mButtonEmail = findViewById(R.id.button_login_email);
         mLoginFb = findViewById(R.id.loginfb_button);
         mButtonFb = findViewById(R.id.btn_fb);
+
     }
 
     private void initLoginWithGg() {

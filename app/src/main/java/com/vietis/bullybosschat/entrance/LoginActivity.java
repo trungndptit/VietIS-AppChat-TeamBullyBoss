@@ -1,8 +1,5 @@
 package com.vietis.bullybosschat.entrance;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,12 +9,15 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.vietis.bullybosschat.fragments.HomeChatActivity;
 import com.vietis.bullybosschat.R;
+import com.vietis.bullybosschat.fragments.HomeChatActivity;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText mInputEmail;
@@ -36,6 +36,8 @@ public class LoginActivity extends AppCompatActivity {
         mInputPasword = findViewById(R.id.et_password);
         mImageBack =  findViewById(R.id.image_back);
         mButtonLogin = findViewById(R.id.button_login);
+        mInputEmail.setText("hanh@gmail.com");
+        mInputPasword.setText("111111");
         addListner();
 
     }

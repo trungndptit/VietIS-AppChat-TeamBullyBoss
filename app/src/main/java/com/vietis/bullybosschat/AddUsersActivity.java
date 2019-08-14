@@ -29,6 +29,7 @@ import java.util.ArrayList;
 
 public class AddUsersActivity extends AppCompatActivity {
 
+
     private EditText mTextSearch;
     private ImageView mImageAddFriend;
     private ImageView mImageBack;
@@ -199,6 +200,7 @@ public class AddUsersActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void initView() {
         mTextSearch = findViewById(R.id.text_search);

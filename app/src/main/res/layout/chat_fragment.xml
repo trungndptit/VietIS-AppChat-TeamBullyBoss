@@ -26,43 +26,32 @@
 
     <LinearLayout
         android:id="@+id/ll_search_online_list"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/background_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/toolbar_add_users"
-        android:layout_marginHorizontal="20dp"
-        android:gravity="center_vertical"
-        android:weightSum="10"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="33dp">
+        android:layout_marginTop="5dp"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:gravity="center"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent">
-            <ImageView
-                android:id="@+id/iv_search_add_user"
-                android:layout_marginTop="2dp"
-                android:layout_marginStart="5dp"
-                android:background="@drawable/ic_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <TextView
-            android:layout_weight="9"
-            android:hint="Search..."
-            android:textSize="15sp"
-            android:textColor="@color/black80"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/text_search"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/round_conner_gray2"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:hint="search"
+            android:textSize="16sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="15dp"
+            android:id="@+id/rv_whom_chat"
+            android:layout_below="@id/ll_search_online_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="15dp"
-        android:id="@+id/rv_whom_chat"
-        android:layout_below="@id/ll_search_online_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
 </RelativeLayout>

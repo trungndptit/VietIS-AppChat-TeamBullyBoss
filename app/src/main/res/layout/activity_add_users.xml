@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AddUsersActivity">
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_add_users"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
 
@@ -17,20 +20,21 @@
                 android:id="@+id/image_view_back"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:src="@drawable/ic_back"/>
+                android:src="@drawable/ic_back" />
 
             <TextView
                 android:id="@+id/toolbar_name"
-                android:text="Add users"
-                android:textStyle="bold"
-                android:textSize="21sp"
-                android:layout_toRightOf="@id/image_view_back"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="14dp"
                 android:layout_marginTop="7dp"
                 android:textColor="@color/black"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:text="Add users"
+                android:layout_toRightOf="@+id/image_view_back"
+                android:textSize="21sp"
+                android:textStyle="bold" />
         </RelativeLayout>
+
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
@@ -47,22 +51,19 @@
             android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/round_conner_gray2"
-            android:foreground="?android:attr/selectableItemBackground"
             android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center_vertical"
-            android:paddingLeft="10dp"
             android:hint="search"
-            android:maxLines="1"
+            android:paddingLeft="10dp"
             android:textSize="16sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_users"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="4dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </androidx.recyclerview.widget.RecyclerView>
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp" />
 
     </LinearLayout>
-
 </LinearLayout>

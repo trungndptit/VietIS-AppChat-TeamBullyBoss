@@ -17,6 +17,7 @@ import com.vietis.bullybosschat.model.User;
 import java.util.ArrayList;
 
 public class AllMyFriendsAdapter extends RecyclerView.Adapter<AllMyFriendsAdapter.ViewHolder>{
+    public static final String IS_FRIEND = "isFriend";
     private Context context;
     private ArrayList<User> users;
 

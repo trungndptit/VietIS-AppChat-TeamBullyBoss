@@ -1,12 +1,6 @@
 package com.vietis.bullybosschat;
 
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +8,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,7 +29,9 @@ import com.vietis.bullybosschat.fragments.HomeChatActivity;
 import com.vietis.bullybosschat.model.Message;
 import com.vietis.bullybosschat.model.User;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class RoomChatActivity extends AppCompatActivity implements View.OnClickListener {
@@ -147,11 +149,15 @@ public class RoomChatActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void sendMessage(String sender, String receiver, String message){
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        String currentDateandTime = sdf.format(new Date());
+
         mData = FirebaseDatabase.getInstance().getReference();
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("sender", sender);
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
+        hashMap.put("time", currentDateandTime);
 
         mData.child("Chats").push().setValue(hashMap);
     }

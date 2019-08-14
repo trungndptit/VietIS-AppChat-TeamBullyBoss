@@ -1,6 +1,7 @@
 package com.vietis.bullybosschat.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.vietis.bullybosschat.R;
+import com.vietis.bullybosschat.UserProfileAcitivity;
 import com.vietis.bullybosschat.model.User;
 
 import java.util.ArrayList;
 
 public class AddUserAdapter extends RecyclerView.Adapter<AddUserAdapter.ViewHolder>{
+    public static final String USER_ID = "userID";
     private Context context;
     private ArrayList<User> users;
 
@@ -41,6 +44,17 @@ public class AddUserAdapter extends RecyclerView.Adapter<AddUserAdapter.ViewHold
         } else {
             Glide.with(context).load(user.getImageurl()).into(holder.ivProfile);
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent userProfile = new Intent(context, UserProfileAcitivity.class);
+                userProfile.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                userProfile.putExtra(USER_ID, user.getId());
+                userProfile.putExtra("isFriend", "false");
+                context.startActivity(userProfile);
+            }
+        });
     }
 
     @Override
@@ -54,6 +68,7 @@ public class AddUserAdapter extends RecyclerView.Adapter<AddUserAdapter.ViewHold
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
+
 
             tvUsername = itemView.findViewById(R.id.add_friend_name);
             ivProfile = itemView.findViewById(R.id.friend_image);
