@@ -23,8 +23,16 @@
             android:padding="5dp"
             android:background="@drawable/background_my_chat_text"
             android:text="this is my chat"
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_marginRight="10dp"
+            android:padding="5dp"
+            android:id="@+id/iv_room_chat_image"
+            android:layout_toLeftOf="@id/civ_avatar_room_chat"
+            android:layout_below="@id/tv_room_chat_text"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </RelativeLayout>
 </RelativeLayout>

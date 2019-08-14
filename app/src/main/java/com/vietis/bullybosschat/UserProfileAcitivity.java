@@ -1,14 +1,14 @@
 package com.vietis.bullybosschat;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -57,7 +57,7 @@ public class UserProfileAcitivity extends AppCompatActivity {
                 if (user.getId().equals(userID)){
                     follows = user.getFollows();
                     tvUsername.setText(user.getUsername());
-                    tvFriendNumber.setText(String.valueOf(user.getFriends().size()));
+                    tvFriendNumber.setText(String.valueOf(user.getFriends().size()-1));
                     tvFollowNumber.setText(String.valueOf(user.getFollows().size()-1));
                     if (user.getImageurl().equals("default")) {
                         ivProfile.setImageResource(R.drawable.ic_avatar);

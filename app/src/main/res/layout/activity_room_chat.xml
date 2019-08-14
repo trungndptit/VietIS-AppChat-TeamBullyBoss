@@ -68,12 +68,12 @@
         android:layout_height="wrap_content">
         <LinearLayout
             android:orientation="horizontal"
-            android:weightSum="7"
+            android:weightSum="5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
                 android:background="@drawable/tv_type_background"
-                android:layout_weight="6"
+                android:layout_weight="4"
                 android:paddingVertical="6dp"
                 android:layout_width="0dp"
                 android:gravity="center_vertical"
@@ -94,6 +94,13 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
+                <ImageButton
+                    android:id="@+id/ib_send_image"
+                    android:background="@drawable/ic_camera_pink"
+                    android:layout_marginRight="5dp"
+
+                    android:layout_width="36dp"
+                    android:layout_height="36dp" />
                 <ImageButton
                     android:id="@+id/ib_send_chat"
                     android:background="@drawable/ic_send"

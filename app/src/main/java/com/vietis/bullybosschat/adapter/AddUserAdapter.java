@@ -69,7 +69,6 @@ public class AddUserAdapter extends RecyclerView.Adapter<AddUserAdapter.ViewHold
         ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-
             tvUsername = itemView.findViewById(R.id.add_friend_name);
             ivProfile = itemView.findViewById(R.id.friend_image);
         }

@@ -1,6 +1,7 @@
 package com.vietis.bullybosschat.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.vietis.bullybosschat.R;
+import com.vietis.bullybosschat.RoomChatActivity;
 import com.vietis.bullybosschat.model.User;
 
 import java.util.ArrayList;
@@ -42,6 +44,16 @@ public class AllMyFriendsAdapter extends RecyclerView.Adapter<AllMyFriendsAdapte
         } else {
             Glide.with(context).load(user.getImageurl()).into(holder.ivProfile);
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent roomChat = new Intent(context, RoomChatActivity.class);
+                roomChat.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                roomChat.putExtra("userID", user.getId());
+                context.startActivity(roomChat);
+            }
+        });
     }
 
     @Override

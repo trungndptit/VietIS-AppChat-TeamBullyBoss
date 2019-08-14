@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.vietis.bullybosschat.R;
+import com.vietis.bullybosschat.cache.PrefUtils;
 import com.vietis.bullybosschat.fragments.HomeChatActivity;
 
 public class LoginActivity extends AppCompatActivity {
@@ -27,18 +28,22 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
+    private PrefUtils prefUtils;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        prefUtils = PrefUtils.getIntance(this);
         mAuth = FirebaseAuth.getInstance();
         mInputEmail = findViewById(R.id.et_email);
         mInputPasword = findViewById(R.id.et_password);
         mImageBack =  findViewById(R.id.image_back);
         mButtonLogin = findViewById(R.id.button_login);
-        mInputEmail.setText("hanh@gmail.com");
-        mInputPasword.setText("111111");
         addListner();
+
+        mInputEmail.setText("dieu@gmail.com");
+        mInputPasword.setText("111111");
 
     }
 
@@ -57,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+                                prefUtils.setCurrentUid(mAuth.getUid());
                                 Intent intent = new Intent(LoginActivity.this, HomeChatActivity.class);
                                 startActivity(intent);
                                 finish();
@@ -80,5 +86,9 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }

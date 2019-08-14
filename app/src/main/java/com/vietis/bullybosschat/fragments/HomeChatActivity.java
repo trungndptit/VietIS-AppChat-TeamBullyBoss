@@ -31,7 +31,6 @@ public class HomeChatActivity extends AppCompatActivity {
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.layout_fragment, fragment);
-//        transaction.addToBackStack(null);
         transaction.commit();
     }
 
