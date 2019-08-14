@@ -26,6 +26,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.vietis.bullybosschat.AddUsersActivity;
+import com.vietis.bullybosschat.AllMyFriendsActivity;
 import com.vietis.bullybosschat.R;
 import com.vietis.bullybosschat.adapter.OnlineFriendAdapter;
 import com.vietis.bullybosschat.model.User;

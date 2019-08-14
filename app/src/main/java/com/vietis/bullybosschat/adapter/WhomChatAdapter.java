@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.vietis.bullybosschat.R;
+import com.vietis.bullybosschat.RoomChatActivity;
 import com.vietis.bullybosschat.model.Message;
 import com.vietis.bullybosschat.model.User;
 
@@ -112,7 +113,11 @@ public class WhomChatAdapter extends RecyclerView.Adapter<WhomChatAdapter.ViewHo
                     Message message = ds.getValue(Message.class);
                     if (message.getReceiver().equals(fuser.getUid()) && message.getSender().equals(userid)
                             || message.getReceiver().equals(userid) && message.getSender().equals(fuser.getUid())) {
-                        thelastmsg = message.getMessage();
+                        if (message.getType().equals("text")){
+                            thelastmsg = message.getMessage();
+                        } else {
+                            thelastmsg = "Đã gửi 1 ảnh";
+                        }
                         thelasttime = message.getTime();
                     }
                 }

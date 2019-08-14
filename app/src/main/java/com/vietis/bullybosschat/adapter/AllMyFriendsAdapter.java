@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.vietis.bullybosschat.R;
+import com.vietis.bullybosschat.RoomChatActivity;
 import com.vietis.bullybosschat.model.User;
 
 import java.util.ArrayList;

@@ -29,6 +29,7 @@ import com.vietis.bullybosschat.model.Message;
 import com.vietis.bullybosschat.model.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ChatFragment extends Fragment {
 
@@ -133,5 +134,23 @@ public class ChatFragment extends Fragment {
     private void setInit(View view) {
         rvWhomChat = view.findViewById(R.id.rv_whom_chat);
         mImageAvatar = view.findViewById(R.id.image_avatar);
+    }
+
+    private void state(String state){
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("state", state);
+        mData.child("Users").child(fuser.getUid()).updateChildren(hashMap);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        state("onl");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        state("off");
     }
 }

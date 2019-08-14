@@ -7,15 +7,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -24,10 +33,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 import com.vietis.bullybosschat.adapter.RoomChatAdapter;
 import com.vietis.bullybosschat.fragments.HomeChatActivity;
 import com.vietis.bullybosschat.model.Message;
 import com.vietis.bullybosschat.model.User;
+import com.vietis.bullybosschat.utils.Constants;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,11 +48,13 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class RoomChatActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final int IMAGE_CHOOSE  = 1;
 
     ImageView ivUserAvatar, ivBack;
     TextView tvUsername;
     EditText etChatText;
     ImageButton ibSend;
+    ImageButton ibSendImage;
     RecyclerView rvChatTextContainer;
 
     RoomChatAdapter roomChatAdapter;
@@ -48,7 +63,16 @@ public class RoomChatActivity extends AppCompatActivity implements View.OnClickL
     FirebaseUser fuser;
     DatabaseReference mData;
 
+    private StorageTask mUpLoadTask;
+    private Uri mUrl;
+    private boolean isUpdateAvatar = true;
+
+    private StorageReference mStorageReference;
+
     Intent intent;
+
+    String myid;
+    String userid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,21 +85,30 @@ public class RoomChatActivity extends AppCompatActivity implements View.OnClickL
         linearLayoutManager.setStackFromEnd(true);
         rvChatTextContainer.setLayoutManager(linearLayoutManager);
         fuser = FirebaseAuth.getInstance().getCurrentUser();
-        final String myid = fuser.getUid();
+        mStorageReference = FirebaseStorage.getInstance().getReference("uploads");
+        myid = fuser.getUid();
 
         intent = getIntent();
-        final String userid = intent.getStringExtra("userID");
+        userid = intent.getStringExtra("userID");
 
         ibSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String msg = etChatText.getText().toString();
                 if (!msg.equals("")){
-                    sendMessage(myid, userid, msg);
+                    sendMessage(myid, userid, msg, "text");
                 } else {
 
                 }
                 etChatText.setText("");
+            }
+        });
+
+        ibSendImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chooseImage();
+                isUpdateAvatar = true;
             }
         });
 
@@ -148,7 +181,7 @@ public class RoomChatActivity extends AppCompatActivity implements View.OnClickL
         });
     }
 
-    private void sendMessage(String sender, String receiver, String message){
+    private void sendMessage(String sender, String receiver, String message, String type){
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         String currentDateandTime = sdf.format(new Date());
 
@@ -158,6 +191,7 @@ public class RoomChatActivity extends AppCompatActivity implements View.OnClickL
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
         hashMap.put("time", currentDateandTime);
+        hashMap.put("type", type);
 
         mData.child("Chats").push().setValue(hashMap);
     }
@@ -168,6 +202,7 @@ public class RoomChatActivity extends AppCompatActivity implements View.OnClickL
         tvUsername = findViewById(R.id.tv_username_room_chat);
         etChatText = findViewById(R.id.et_roomchat_text);
         ibSend = findViewById(R.id.ib_send_chat);
+        ibSendImage = findViewById(R.id.ib_send_image);
         rvChatTextContainer = findViewById(R.id.rv_room_chat_container);
     }
 
@@ -180,21 +215,89 @@ public class RoomChatActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    private void state(String state){
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("state", state);
-        mData.child("Users").child(fuser.getUid()).updateChildren(hashMap);
+
+    private void chooseImage() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "choose photo for  profile"), IMAGE_CHOOSE);
+
+    }
+
+    private String getFileImage(Uri uri) {
+        ContentResolver contentResolver = getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
+
+    private void upLoadImage() {
+
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+
+        progressDialog.setMessage("Uploading");
+        progressDialog.show();
+        if (mUrl != null) {
+            final StorageReference storageFile = mStorageReference.child(System.currentTimeMillis() + "." + getFileImage(mUrl));
+            mUpLoadTask = storageFile.putFile(mUrl);
+            mUpLoadTask.continueWithTask(new Continuation() {
+                @Override
+                public Object then(@NonNull Task task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+//                        Toast.makeText(getContext(), "upload image fail", Toast.LENGTH_SHORT).show();
+
+                    }
+                    return storageFile.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    if (task.isSuccessful()) {
+                        Uri urlDowlaod = (Uri) task.getResult();
+                        String mUriDowload = urlDowlaod.toString();
+//                        mData = FirebaseDatabase.getInstance().getReference("Users").child(fuser.getUid());
+//                        HashMap<String, Object> hashMap = new HashMap<>();
+                        if (isUpdateAvatar){
+                            sendMessage(myid, userid, mUriDowload, "image");
+                        }
+//                        else hashMap.put(Constants.ROW_COVER, mUriDowload);
+//                        mData.updateChildren(hashMap);
+                        progressDialog.dismiss();
+
+                    } else {
+                        Toast.makeText(RoomChatActivity.this, "Fail", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(RoomChatActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    progressDialog.dismiss();
+                }
+            });
+
+
+        } else {
+            Toast.makeText(this, "Not Select Image", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        state("onl");
-    }
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == IMAGE_CHOOSE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            mUrl = data.getData();
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        state("off");
+            if (mUpLoadTask != null && mUpLoadTask.isInProgress()) {
+                Toast.makeText(this, "image  is uploading", Toast.LENGTH_SHORT).show();
+            } else {
+                upLoadImage();
+
+            }
+        }
+
     }
 }

@@ -50,7 +50,13 @@ public class RoomChatAdapter extends RecyclerView.Adapter<RoomChatAdapter.ViewHo
     public void onBindViewHolder(@NonNull RoomChatAdapter.ViewHolder holder, int position) {
         Message message = messages.get(holder.getAdapterPosition());
         System.out.println("Debug Adapter: messages.size-" + messages.size() + " and the position: " + position + " and the getAdapterPosition: " + holder.getAdapterPosition());
-        holder.tvMessage.setText(message.getMessage());
+
+        if (message.getType().equals("text")){
+            holder.tvMessage.setText(message.getMessage());
+        } else {
+            holder.tvMessage.setVisibility(View.GONE);
+            Glide.with(context).load(message.getMessage()).into(holder.ivImage);
+        }
         if (imageURL.equals("default")){
             holder.ivProfile.setImageResource(R.drawable.ic_avatar);
         } else {
@@ -66,12 +72,14 @@ public class RoomChatAdapter extends RecyclerView.Adapter<RoomChatAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tvMessage;
         public ImageView ivProfile;
+        public ImageView ivImage;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tvMessage = itemView.findViewById(R.id.tv_room_chat_text);
             ivProfile = itemView.findViewById(R.id.civ_avatar_room_chat);
+            ivImage = itemView.findViewById(R.id.iv_room_chat_image);
         }
     }
 
