@@ -5,12 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,7 +37,7 @@ public class ChatFragment extends Fragment {
     private ArrayList<String> userList;
 
     private WhomChatAdapter whomChatAdapter;
-    ImageView mImageAvatar;
+    ImageView mAvatar;
 
     FirebaseUser fuser;
     DatabaseReference mData;
@@ -117,6 +114,19 @@ public class ChatFragment extends Fragment {
                             users.add(user);
                         }
                     }
+
+                    if (user.getId().equals(fuser.getUid())){
+                        if (user.getImageurl().equals("default")) {
+                            mAvatar.setImageResource(R.drawable.ic_avatar);
+                        } else {
+                            if (getActivity() != null) {
+                                Glide.with(getActivity())
+                                        .load(user.getImageurl())
+                                        .circleCrop()
+                                        .into(mAvatar);
+                            }
+                        }
+                    }
                 }
 
                 whomChatAdapter = new WhomChatAdapter(getContext(), users);
@@ -133,7 +143,7 @@ public class ChatFragment extends Fragment {
 
     private void setInit(View view) {
         rvWhomChat = view.findViewById(R.id.rv_whom_chat);
-        mImageAvatar = view.findViewById(R.id.image_avatar);
+        mAvatar = view.findViewById(R.id.image_avatar);
     }
 
     private void state(String state){

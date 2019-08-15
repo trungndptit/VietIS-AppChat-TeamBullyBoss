@@ -94,7 +94,7 @@ public class ProfileFragment extends Fragment {
 
                     if (idUser.equals(user.getId())) {
                         mTextName.setText(user.getUsername());
-                        tvFriends.setText(String.valueOf(user.getFriends().size()));
+                        tvFriends.setText(String.valueOf(user.getFriends().size() - 1));
                         tvFollows.setText(String.valueOf(user.getFollows().size() - 1));
                         if (user.getImagecover().equals("default")) {
                             mImageCover.setImageResource(R.drawable.anhbia1);
@@ -106,7 +106,7 @@ public class ProfileFragment extends Fragment {
                             }
                         }
                         if (user.getImageurl().equals("default")) {
-                            mImageAvatar.setImageResource(R.drawable.anh1);
+                            mImageAvatar.setImageResource(R.drawable.ic_avatar);
                         } else {
                             if (getActivity() != null) {
                                 Glide.with(getActivity())

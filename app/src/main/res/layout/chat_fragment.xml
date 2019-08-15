@@ -5,24 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
+    <include
         android:id="@+id/toolbar_add_users"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/image_avatar"
-            android:background="@drawable/ic_avatar"
-            android:layout_width="40dp"
-            android:layout_height="40dp" />
-        <TextView
-            android:layout_marginLeft="30dp"
-            android:text="Chat"
-            android:textColor="@color/gray80"
-            android:textStyle="bold"
-            android:textSize="21sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </androidx.appcompat.widget.Toolbar>
+        layout="@layout/chat_toolbar" />
 
     <LinearLayout
         android:id="@+id/ll_search_online_list"

@@ -10,10 +10,8 @@
             android:id="@+id/image_background"
             android:layout_width="match_parent"
             android:layout_height="230dp"
-            android:layout_marginLeft="18dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/anhbia1"
-            android:layout_marginRight="18dp" />
+            android:scaleType="centerCrop"
+            android:src="@drawable/anhbia1" />
         <ImageButton
             android:id="@+id/image_back"
             android:layout_width="wrap_content"
@@ -41,7 +39,7 @@
         <ImageView
             android:id="@+id/image_avatar"
             android:layout_width="180dp"
-            android:src="@drawable/anh1"
+            android:src="@drawable/ic_avatar"
             android:layout_height="180dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="140dp"

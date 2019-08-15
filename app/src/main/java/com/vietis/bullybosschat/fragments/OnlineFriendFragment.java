@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -41,6 +42,7 @@ public class OnlineFriendFragment extends Fragment {
     private ImageView mImageAddFriend;
     private ImageView mImageAllFriend;
     private ImageView mImageFriendRequest;
+    private ImageView mAvatar;
 
     private RecyclerView rvListOnline;
     private OnlineFriendAdapter onlineFriendAdapter;
@@ -186,6 +188,16 @@ public class OnlineFriendFragment extends Fragment {
                     assert user != null;
                     if (user.getId().equals(fuser.getUid())) {
                         friendsId = user.getFriends();
+                        if (user.getImageurl().equals("default")) {
+                            mAvatar.setImageResource(R.drawable.ic_avatar);
+                        } else {
+                            if (getActivity() != null) {
+                                Glide.with(getActivity())
+                                        .load(user.getImageurl())
+                                        .circleCrop()
+                                        .into(mAvatar);
+                            }
+                        }
                     }
                 }
             }
@@ -246,5 +258,6 @@ public class OnlineFriendFragment extends Fragment {
         mImageAddFriend = view.findViewById(R.id.image_add_friend);
         mImageAllFriend = view.findViewById(R.id.image_all_friend);
         mImageFriendRequest = view.findViewById(R.id.image_request_friend);
+        mAvatar = view.findViewById(R.id.image_avatar);
     }
 }
