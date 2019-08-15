@@ -1,4 +1,5 @@
 package com.vietis.bullybosschat.fragments;
+
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -41,7 +42,7 @@ import java.util.HashMap;
 import static android.app.Activity.RESULT_OK;
 
 public class ProfileFragment extends Fragment {
-    private static final int IMAGE_CHOOSE  = 1;
+    private static final int IMAGE_CHOOSE = 1;
 
     private ImageView mImageAvatar;
     private ImageView mImageCover;
@@ -71,8 +72,8 @@ public class ProfileFragment extends Fragment {
         mImageCover = view.findViewById(R.id.image_background);
         mUpdateAvatar = view.findViewById(R.id.image_edit_avatar);
         mUpdateCover = view.findViewById(R.id.image_edit_cover);
-        mImageLogout =  view.findViewById(R.id.image_logout);
-        mImageCover =  view.findViewById(R.id.image_background);
+        mImageLogout = view.findViewById(R.id.image_logout);
+        mImageCover = view.findViewById(R.id.image_background);
         mImageAvatar = view.findViewById(R.id.image_avatar);
         mTextName = view.findViewById(R.id.txt_name);
         tvFriends = view.findViewById(R.id.text_one);
@@ -83,43 +84,45 @@ public class ProfileFragment extends Fragment {
         final String idUser = user.getUid();
         mReference = FirebaseDatabase.getInstance().getReference();
         mStorageReference = FirebaseStorage.getInstance().getReference("uploads");
-        mReference.child("Users").child(idUser).addValueEventListener(new ValueEventListener() {
+        mReference.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 System.out.println("Debug: addChild profile");
-                User user = dataSnapshot.getValue(User.class);
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                if (idUser.equals(user.getId())) {
-                    mTextName.setText(user.getUsername());
-                    tvFriends.setText(String.valueOf(user.getFriends().size()));
-                    tvFollows.setText(String.valueOf(user.getFollows().size()-1));
-                    if(user.getImagecover().equals("default")){
-                        mImageCover.setImageResource(R.drawable.anhbia1);
-                    }
-                    else {
-                        if (getActivity()!= null){
-                            Glide.with(getActivity())
-                                    .load(user.getImagecover())
-                                    .into(mImageCover);
-                        }
-                    }
-                    if (user.getImageurl().equals("default")) {
-                        mImageAvatar.setImageResource(R.drawable.anh1);
-                    } else {
-                        if (getActivity()!= null){
-                            Glide.with(getActivity())
-                                    .load(user.getImageurl())
-                                    .circleCrop()
-                                    .into(mImageAvatar);
-                        }
-                    }
+                    User user = ds.getValue(User.class);
 
+                    if (idUser.equals(user.getId())) {
+                        mTextName.setText(user.getUsername());
+                        tvFriends.setText(String.valueOf(user.getFriends().size()));
+                        tvFollows.setText(String.valueOf(user.getFollows().size() - 1));
+                        if (user.getImagecover().equals("default")) {
+                            mImageCover.setImageResource(R.drawable.anhbia1);
+                        } else {
+                            if (getActivity() != null) {
+                                Glide.with(getActivity())
+                                        .load(user.getImagecover())
+                                        .into(mImageCover);
+                            }
+                        }
+                        if (user.getImageurl().equals("default")) {
+                            mImageAvatar.setImageResource(R.drawable.anh1);
+                        } else {
+                            if (getActivity() != null) {
+                                Glide.with(getActivity())
+                                        .load(user.getImageurl())
+                                        .circleCrop()
+                                        .into(mImageAvatar);
+                            }
+                        }
+
+                    }
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                throw databaseError.toException();
             }
         });
         addListner();

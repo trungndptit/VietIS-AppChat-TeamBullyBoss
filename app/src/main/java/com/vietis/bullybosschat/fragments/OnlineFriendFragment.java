@@ -28,8 +28,10 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.vietis.bullybosschat.AddUsersActivity;
 import com.vietis.bullybosschat.AllMyFriendsActivity;
+import com.vietis.bullybosschat.FriendsRequestActivity;
 import com.vietis.bullybosschat.R;
 import com.vietis.bullybosschat.adapter.OnlineFriendAdapter;
+import com.vietis.bullybosschat.model.FriendsRequest;
 import com.vietis.bullybosschat.model.User;
 
 import java.util.ArrayList;
@@ -38,12 +40,15 @@ public class OnlineFriendFragment extends Fragment {
     private EditText mTextSearch;
     private ImageView mImageAddFriend;
     private ImageView mImageAllFriend;
+    private ImageView mImageFriendRequest;
 
     private RecyclerView rvListOnline;
     private OnlineFriendAdapter onlineFriendAdapter;
     private ArrayList<User> mUsers;
 
     private ArrayList<String> friendsId;
+
+    private ArrayList<String> listRequest;
 
     @Nullable
     @Override
@@ -54,6 +59,8 @@ public class OnlineFriendFragment extends Fragment {
         rvListOnline.setHasFixedSize(true);
         rvListOnline.setLayoutManager(new LinearLayoutManager(getContext()));
         mUsers = new ArrayList<>();
+        listRequest = new ArrayList<>();
+        getRequestList();
 
         getFriends();
         readUser();
@@ -70,6 +77,14 @@ public class OnlineFriendFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), AllMyFriendsActivity.class);
+                startActivity(intent);
+            }
+        });
+        mImageFriendRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), FriendsRequestActivity.class);
+                intent.putStringArrayListExtra("request", listRequest);
                 startActivity(intent);
             }
         });
@@ -113,6 +128,44 @@ public class OnlineFriendFragment extends Fragment {
                 onlineFriendAdapter = new OnlineFriendAdapter(getContext(), mUsers);
                 rvListOnline.setAdapter(onlineFriendAdapter);
                 onlineFriendAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void getRequestList(){
+        final FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
+        listRequest = new ArrayList<>();
+        mData.child("friendRequest").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                FriendsRequest friendsRequest = dataSnapshot.getValue(FriendsRequest.class);
+                System.out.println("Debug getTarget " + friendsRequest.getTarget());
+                System.out.println("Debug fuser " + fuser.getUid());
+                if (friendsRequest.getTarget().equals(fuser.getUid())){
+                    listRequest.add(friendsRequest.getSender());
+                    System.out.println("Debug getRequestList listRequest.size " + listRequest.size());
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
             }
 
             @Override
@@ -192,5 +245,6 @@ public class OnlineFriendFragment extends Fragment {
         rvListOnline = view.findViewById(R.id.list_friend_online);
         mImageAddFriend = view.findViewById(R.id.image_add_friend);
         mImageAllFriend = view.findViewById(R.id.image_all_friend);
+        mImageFriendRequest = view.findViewById(R.id.image_request_friend);
     }
 }

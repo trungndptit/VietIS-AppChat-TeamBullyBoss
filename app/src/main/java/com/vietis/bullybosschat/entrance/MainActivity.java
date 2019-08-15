@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private CallbackManager mCallBackManager;
 
-    private PrefUtils prefUtils;
+//    private PrefUtils prefUtils;
 
     private GoogleSignInClient mGoogleSignInClient;
 
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        prefUtils = PrefUtils.getIntance(this);
+//        prefUtils = PrefUtils.getIntance(this);
         checkLogined();
         initView();
 
@@ -87,11 +87,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkLogined() {
-        if (prefUtils.getCurrentUid() != null) {
-            Intent intent = new Intent(MainActivity.this, HomeChatActivity.class);
-            startActivity(intent);
-            finish();
-        }
+//        if (prefUtils.getCurrentUid() != null) {
+//            Intent intent = new Intent(MainActivity.this, HomeChatActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
     }
 
 
@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
 
                 if (task.isSuccessful()) {
-                    prefUtils.setCurrentUid(mAuth.getUid());
+//                    prefUtils.setCurrentUid(mAuth.getUid());
                     Intent intent = new Intent(MainActivity.this, HomeChatActivity.class);
                     startActivity(intent);
                     finish();
