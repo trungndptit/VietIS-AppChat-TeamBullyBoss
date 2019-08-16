@@ -2,6 +2,7 @@ package com.vietis.bullybosschat.fragments;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
@@ -33,7 +35,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.vietis.bullybosschat.R;
+import com.vietis.bullybosschat.cache.PrefUtils;
 import com.vietis.bullybosschat.entrance.LoginActivity;
+import com.vietis.bullybosschat.entrance.MainActivity;
 import com.vietis.bullybosschat.model.User;
 import com.vietis.bullybosschat.utils.Constants;
 
@@ -60,6 +64,8 @@ public class ProfileFragment extends Fragment {
     private Uri mUrl;
     private boolean isUpdateAvatar = true;
 
+    private PrefUtils prefUtils;
+
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -69,6 +75,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.my_profile_fragment, container, false);
+        prefUtils = PrefUtils.getIntance(getActivity());
         mImageCover = view.findViewById(R.id.image_background);
         mUpdateAvatar = view.findViewById(R.id.image_edit_avatar);
         mUpdateCover = view.findViewById(R.id.image_edit_cover);
@@ -135,10 +142,26 @@ public class ProfileFragment extends Fragment {
         mImageLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AlertDialog.Builder alertdialog=new AlertDialog.Builder(getActivity());
+                alertdialog.setTitle("Logout");
+                alertdialog.setMessage("Are you sure you Want to logOut??");
+                alertdialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        logOut();
+                    }
+                });
 
-                Intent intent = new Intent(getActivity().getApplication(), LoginActivity.class);
-                startActivity(intent);
+                alertdialog.setNegativeButton("No", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
 
+
+                AlertDialog alert =alertdialog.create();
+                alertdialog.show();
             }
         });
 
@@ -159,6 +182,15 @@ public class ProfileFragment extends Fragment {
                 isUpdateAvatar = true;
             }
         });
+    }
+
+    private void logOut() {
+        FirebaseAuth.getInstance().signOut();
+        prefUtils.clearAllKey();
+        Intent intent = new Intent(getActivity().getApplication(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+
     }
 
     private void chooseImage() {

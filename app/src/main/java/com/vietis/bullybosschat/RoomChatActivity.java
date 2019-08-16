@@ -113,6 +113,15 @@ public class RoomChatActivity extends AppCompatActivity implements View.OnClickL
         });
 
         ivBack.setOnClickListener(this);
+        ivUserAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent roomChat = new Intent(RoomChatActivity.this, UserProfileAcitivity.class);
+                roomChat.putExtra("userID", userid);
+                roomChat.putExtra("isFriend", "false");
+                startActivity(roomChat);
+            }
+        });
 
         mData = FirebaseDatabase.getInstance().getReference();
         mData.child("Users").addChildEventListener(new ChildEventListener() {

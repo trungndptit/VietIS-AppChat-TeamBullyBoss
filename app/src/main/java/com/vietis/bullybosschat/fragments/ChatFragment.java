@@ -108,13 +108,16 @@ public class ChatFragment extends Fragment {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     User user = ds.getValue(User.class);
 
+                    System.out.println("Debug loadChat = " + userList.size() + " va user.getid " + user.getId());
                     for (String id : userList) {
 
+                        assert user != null;
                         if (user.getId().equals(id)) {
                             users.add(user);
                         }
                     }
 
+                    assert user != null;
                     if (user.getId().equals(fuser.getUid())){
                         if (user.getImageurl().equals("default")) {
                             mAvatar.setImageResource(R.drawable.ic_avatar);
