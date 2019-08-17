@@ -22,7 +22,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.vietis.bullybosschat.R;
-import com.vietis.bullybosschat.RoomChatActivity;
 import com.vietis.bullybosschat.UserProfileAcitivity;
 import com.vietis.bullybosschat.model.User;
 
@@ -69,8 +68,6 @@ public class FriendsRequestAdapter extends RecyclerView.Adapter<FriendsRequestAd
             public void onClick(View view) {
                 addFriendToMyData(fuser.getUid(), user.getId());
                 addFriendToMyData(user.getId(), fuser.getUid());
-//                addFriendToMyData(getUser(fuser.getUid()), user.getId());
-//                mUser = getUser(fuser.getUid());
                 holder.btnAccept.setVisibility(View.GONE);
                 holder.btnDeny.setText("Accepted");
                 holder.btnDeny.setClickable(false);
@@ -99,9 +96,6 @@ public class FriendsRequestAdapter extends RecyclerView.Adapter<FriendsRequestAd
     }
 
     private void addFriendToMyData(final String myId, final String userId){
-//        mData.child("Users").child(myId).child("friends").push().setValue(userId);
-
-
         mData.child("Users").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -138,16 +132,6 @@ public class FriendsRequestAdapter extends RecyclerView.Adapter<FriendsRequestAd
 
             }
         });
-
-
-
-
-//        System.out.println("Debug addFriendToMyData");
-//        ArrayList<String> friendsId = myUser.getFriends();
-////        friendsId.add(userId);
-//        HashMap<String, Object> hashMap = new HashMap<>();
-//        hashMap.put(friendsId.size() + "", userId);
-//        mData.child("Users").child(myUser.getId()).child("friends").setValue(hashMap);
     }
 
     private void putData(String id, ArrayList<String> friendsList){

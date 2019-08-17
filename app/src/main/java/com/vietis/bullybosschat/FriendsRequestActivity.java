@@ -17,9 +17,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.vietis.bullybosschat.adapter.AllMyFriendsAdapter;
 import com.vietis.bullybosschat.adapter.FriendsRequestAdapter;
-import com.vietis.bullybosschat.model.FriendsRequest;
 import com.vietis.bullybosschat.model.User;
 
 import java.util.ArrayList;
@@ -78,7 +76,6 @@ public class FriendsRequestActivity extends AppCompatActivity {
                         break;
                     }
                 }
-
 
             }
 

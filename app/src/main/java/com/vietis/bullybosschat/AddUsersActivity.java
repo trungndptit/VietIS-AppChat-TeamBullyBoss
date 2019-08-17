@@ -30,8 +30,7 @@ import com.vietis.bullybosschat.model.User;
 import java.util.ArrayList;
 
 public class AddUsersActivity extends AppCompatActivity {
-
-
+    
     private EditText mTextSearch;
     private ImageView mImageAddFriend;
     private ImageView mImageBack;

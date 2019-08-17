@@ -221,8 +221,6 @@ public class ProfileFragment extends Fragment {
                 public Object then(@NonNull Task task) throws Exception {
                     if (!task.isSuccessful()) {
                         throw task.getException();
-//                        Toast.makeText(getContext(), "upload image fail", Toast.LENGTH_SHORT).show();
-
                     }
                     return storageFile.getDownloadUrl();
                 }

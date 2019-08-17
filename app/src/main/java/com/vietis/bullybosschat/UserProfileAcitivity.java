@@ -109,7 +109,6 @@ public class UserProfileAcitivity extends AppCompatActivity {
         });
     }
 
-
     private void sendFriendRequest(String myId, String userId, String isFriend){
         if (!isFriend.equals("true")){
             mData = FirebaseDatabase.getInstance().getReference();

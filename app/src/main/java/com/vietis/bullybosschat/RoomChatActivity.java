@@ -264,13 +264,9 @@ public class RoomChatActivity extends AppCompatActivity implements View.OnClickL
                     if (task.isSuccessful()) {
                         Uri urlDowlaod = (Uri) task.getResult();
                         String mUriDowload = urlDowlaod.toString();
-//                        mData = FirebaseDatabase.getInstance().getReference("Users").child(fuser.getUid());
-//                        HashMap<String, Object> hashMap = new HashMap<>();
                         if (isUpdateAvatar){
                             sendMessage(myid, userid, mUriDowload, "image");
                         }
-//                        else hashMap.put(Constants.ROW_COVER, mUriDowload);
-//                        mData.updateChildren(hashMap);
                         progressDialog.dismiss();
 
                     } else {

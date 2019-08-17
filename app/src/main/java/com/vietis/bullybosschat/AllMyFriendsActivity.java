@@ -43,7 +43,6 @@ public class AllMyFriendsActivity extends AppCompatActivity {
         getFriendId();
         readUser();
 
-
         mImgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
