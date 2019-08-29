@@ -51,7 +51,7 @@ public class WhomChatAdapter extends RecyclerView.Adapter<WhomChatAdapter.ViewHo
         if (user.getImageurl().equals("default")) {
             holder.ivProfile.setImageResource(R.drawable.ic_avatar);
         } else {
-            Glide.with(context).load(user.getImageurl()).into(holder.ivProfile);
+            Glide.with(context).load(user.getImageurl()).circleCrop().into(holder.ivProfile);
         }
 
 

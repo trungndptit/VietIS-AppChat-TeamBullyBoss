@@ -9,10 +9,16 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.vietis.bullybosschat.R;
 import com.vietis.bullybosschat.fragments.ChatFragment;
 import com.vietis.bullybosschat.fragments.OnlineFriendFragment;
 import com.vietis.bullybosschat.fragments.ProfileFragment;
+import com.vietis.bullybosschat.notifications.Token;
 
 public class HomeChatActivity extends AppCompatActivity {
 
@@ -25,6 +31,16 @@ public class HomeChatActivity extends AppCompatActivity {
         mBottomNavi = findViewById(R.id.view_bottom_navigation);
         loadFragment(new ChatFragment());
         initBottonNavi();
+
+        updateToken(FirebaseInstanceId.getInstance().getToken());
+    }
+
+    public void updateToken(String token){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
+        Token mToken = new Token(token);
+        assert fuser != null;
+        ref.child("Tokens").child(fuser.getUid()).setValue(mToken);
     }
 
     private void loadFragment(Fragment fragment) {

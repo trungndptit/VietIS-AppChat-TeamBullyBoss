@@ -20,10 +20,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.vietis.bullybosschat.R;
 import com.vietis.bullybosschat.adapter.WhomChatAdapter;
 import com.vietis.bullybosschat.model.Message;
 import com.vietis.bullybosschat.model.User;
+import com.vietis.bullybosschat.notifications.Token;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,7 +82,16 @@ public class ChatFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+
+        updateToken(FirebaseInstanceId.getInstance().getToken());
+
         return view;
+    }
+
+    private void updateToken(String token){
+        DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
+        Token token1 = new Token(token);
+        mData.child("Tokens").child(fuser.getUid()).setValue(token1);
     }
 
     private boolean checkUserID(ArrayList<String> mIDs, String id) {

@@ -32,20 +32,29 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.vietis.bullybosschat.adapter.RoomChatAdapter;
+import com.vietis.bullybosschat.notifications.APIService;
 import com.vietis.bullybosschat.fragments.HomeChatActivity;
 import com.vietis.bullybosschat.model.Message;
 import com.vietis.bullybosschat.model.User;
-import com.vietis.bullybosschat.utils.Constants;
+import com.vietis.bullybosschat.notifications.Client;
+import com.vietis.bullybosschat.notifications.Data;
+import com.vietis.bullybosschat.notifications.Response;
+import com.vietis.bullybosschat.notifications.Sender;
+import com.vietis.bullybosschat.notifications.Token;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class RoomChatActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int IMAGE_CHOOSE  = 1;
@@ -74,12 +83,18 @@ public class RoomChatActivity extends AppCompatActivity implements View.OnClickL
     String myid;
     String userid;
 
+    APIService apiService;
+    boolean notify = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room_chat);
 
         setInit();
+
+        apiService = Client.getClient("http://fcm.googleapis.com/").create(APIService.class);
+
         rvChatTextContainer.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
@@ -94,6 +109,7 @@ public class RoomChatActivity extends AppCompatActivity implements View.OnClickL
         ibSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                notify = true;
                 String msg = etChatText.getText().toString();
                 if (!msg.equals("")){
                     sendMessage(myid, userid, msg, "text");
@@ -190,7 +206,7 @@ public class RoomChatActivity extends AppCompatActivity implements View.OnClickL
         });
     }
 
-    private void sendMessage(String sender, String receiver, String message, String type){
+    private void sendMessage(String sender, final String receiver, String message, String type){
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         String currentDateandTime = sdf.format(new Date());
 
@@ -203,6 +219,61 @@ public class RoomChatActivity extends AppCompatActivity implements View.OnClickL
         hashMap.put("type", type);
 
         mData.child("Chats").push().setValue(hashMap);
+
+        final String msg = message;
+        mData.child("Users").child(fuser.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                if (notify){
+                    sendNotification(receiver, user.getUsername(), msg);
+                }
+                notify = false;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void sendNotification(String receiver, final String username, final String message){
+        DatabaseReference tokens = FirebaseDatabase.getInstance().getReference("Tokens");
+        Query query = tokens.orderByKey().equalTo(receiver);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    Token token = ds.getValue(Token.class);
+                    Data data = new Data(fuser.getUid(), R.mipmap.ic_launcher, username+": "+message, "New Message", userid);
+                    Sender sender = new Sender(data, token.getToken());
+
+                    System.out.println("Debug: Retrofit : " );
+
+                    apiService.sendNotification(sender).enqueue(new Callback<Response>() {
+                        @Override
+                        public void onResponse(Call<Response> call, retrofit2.Response response) {
+                            if (response.code() == 200){
+                                if (response.body().success != 1){
+                                    Toast.makeText(RoomChatActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Response> call, Throwable t) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void setInit() {
