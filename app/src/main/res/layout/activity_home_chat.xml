@@ -7,7 +7,6 @@
     tools:context=".fragments.HomeChatActivity">
 
 
-
     <FrameLayout
         android:id="@+id/layout_fragment"
         android:layout_width="match_parent"
@@ -25,8 +24,8 @@
         android:layout_alignParentBottom="true"
         android:background="?android:attr/windowBackground"
         android:foreground="?attr/selectableItemBackground"
-        app:labelVisibilityMode="unlabeled"
         app:itemIconTint="@color/black"
-        app:menu="@menu/menu_bottom_navi" ></com.google.android.material.bottomnavigation.BottomNavigationView>
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/menu_bottom_navi"></com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </RelativeLayout>
